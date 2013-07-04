@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Drawing;
 
 namespace FallingBricks2
 {
@@ -23,6 +24,17 @@ namespace FallingBricks2
         public MainWindow()
         {
             InitializeComponent();
-        }
+            //var shape = new Shape();
+            Rectangle
+
+        }               
     }
+
+    //public class Block : Shape
+    //{
+    //    public Shape CreateBlock()
+    //    {
+    //       var block = new Block()
+    //    }
+    //}
 }
