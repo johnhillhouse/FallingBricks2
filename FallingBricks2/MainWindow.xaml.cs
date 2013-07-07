@@ -24,17 +24,27 @@ namespace FallingBricks2
         public MainWindow()
         {
             InitializeComponent();
-            //var shape = new Shape();
-            Rectangle
 
-        }               
+            var tile = new Square();
+
+            Rectangle rect = new Rectangle { Width = tile.Width, Height = tile.Height, Fill = GetBrush(tile) };
+            board.Children.Add(rect);
+            Canvas.SetLeft(rect, tile.Left);
+            Canvas.SetTop(rect, tile.Top);
+
+        }
+
+        private SolidColorBrush GetBrush(Tile tile)
+        {
+            switch (tile.Colour)
+            {
+                case Colour.Blue: return Brushes.Blue;
+                case Colour.Green: return Brushes.Green;
+                case Colour.Orange: return Brushes.Orange;
+                case Colour.Red: return Brushes.Red;
+                case Colour.Yellow: return Brushes.Yellow;
+                default: return Brushes.Brown;
+            }
+        }
     }
-
-    //public class Block : Shape
-    //{
-    //    public Shape CreateBlock()
-    //    {
-    //       var block = new Block()
-    //    }
-    //}
 }

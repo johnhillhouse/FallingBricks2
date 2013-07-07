@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FallingBricks2.Controller
+namespace FallingBricks2
 {
     abstract class Shape
     {
