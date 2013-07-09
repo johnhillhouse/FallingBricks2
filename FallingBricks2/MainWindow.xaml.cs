@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -24,19 +25,44 @@ namespace FallingBricks2
         public MainWindow()
         {
             InitializeComponent();
-
-            var tile = new Square();
-
-            Rectangle rect = new Rectangle { Width = tile.Width, Height = tile.Height, Fill = GetBrush(tile) };
-            board.Children.Add(rect);
-            Canvas.SetLeft(rect, tile.Left);
-            Canvas.SetTop(rect, tile.Top);
-
+            RunGame();
         }
 
-        private SolidColorBrush GetBrush(Tile tile)
+        private void RunGame()
         {
-            switch (tile.Colour)
+            var shape = ShapeFactory.GetRandomShape();
+            DrawShape(shape);
+            Thread.Sleep(10000);
+            ClearShape(shape);
+            shape.RotateClockWise();
+            DrawShape(shape);
+        }
+
+        private void DrawShape(Shape shape)
+        {
+            foreach (var tile in shape.Tiles)
+            {
+                Rectangle rect = new Rectangle { Width = tile.Width, Height = tile.Height, Fill = GetBrush(shape.Colour) };
+                board.Children.Add(rect);
+                Canvas.SetLeft(rect, tile.TopLeftPoint.X);
+                Canvas.SetTop(rect, tile.TopLeftPoint.Y);
+            }
+        }
+
+        private void ClearShape(Shape shape)
+        {
+            foreach (var tile in shape.Tiles)
+            {
+                Rectangle rect = new Rectangle { Width = tile.Width, Height = tile.Height, Fill = Brushes.White };
+                board.Children.Add(rect);
+                Canvas.SetLeft(rect, tile.TopLeftPoint.X);
+                Canvas.SetTop(rect, tile.TopLeftPoint.Y);
+            }
+        }
+        
+        private SolidColorBrush GetBrush(Colour colour)
+        {
+            switch (colour)
             {
                 case Colour.Blue: return Brushes.Blue;
                 case Colour.Green: return Brushes.Green;

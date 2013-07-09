@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2012 for Windows Desktop
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FallingBricks2", "FallingBricks2\FallingBricks2.csproj", "{B8EBA5CC-8682-4ED2-A036-E3EA6E72F379}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{BCA43C8D-D5F6-4E40-B058-CDEE954B7F7E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{B8EBA5CC-8682-4ED2-A036-E3EA6E72F379}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8EBA5CC-8682-4ED2-A036-E3EA6E72F379}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8EBA5CC-8682-4ED2-A036-E3EA6E72F379}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCA43C8D-D5F6-4E40-B058-CDEE954B7F7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCA43C8D-D5F6-4E40-B058-CDEE954B7F7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCA43C8D-D5F6-4E40-B058-CDEE954B7F7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCA43C8D-D5F6-4E40-B058-CDEE954B7F7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

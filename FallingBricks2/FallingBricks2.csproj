@@ -54,9 +54,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Colour.cs" />
+    <Compile Include="L.cs" />
+    <Compile Include="Line.cs" />
     <Compile Include="Point.cs" />
+    <Compile Include="S.cs" />
     <Compile Include="Shape.cs" />
+    <Compile Include="ShapeFactory.cs" />
     <Compile Include="Square.cs" />
+    <Compile Include="T.cs" />
     <Compile Include="Tile.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

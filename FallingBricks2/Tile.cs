@@ -12,12 +12,10 @@ namespace FallingBricks2
         {
             Height = 20;
             Width = 20;
-            Colour = Colour.Red;
         }
 
         public int Height { get; private set; }
         public int Width { get; private set; }
-        public Colour Colour { get; set; }
         public Point TopLeftPoint { get; set;}
     }    
 }
