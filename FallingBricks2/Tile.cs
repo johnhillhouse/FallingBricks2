@@ -8,10 +8,11 @@ namespace FallingBricks2
 {
     public class Tile
     {
-        public Tile()
+        public Tile(int width, int height)
         {
-            Height = 20;
-            Width = 20;
+            TopLeftPoint = new Point(0, 0);
+            Width = width;
+            Height = height;
         }
 
         public int Height { get; private set; }

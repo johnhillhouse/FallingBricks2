@@ -32,8 +32,13 @@ namespace FallingBricks2
         {
             var shape = ShapeFactory.GetRandomShape();
             DrawShape(shape);
-            Thread.Sleep(10000);
-            ClearShape(shape);
+            //ClearShape(shape);
+            shape.RotateClockWise();
+            DrawShape(shape);
+
+            shape.RotateClockWise();
+            DrawShape(shape);
+
             shape.RotateClockWise();
             DrawShape(shape);
         }
@@ -49,7 +54,7 @@ namespace FallingBricks2
             }
         }
 
-        private void ClearShape(Shape shape)
+        /*private void ClearShape(Shape shape)
         {
             foreach (var tile in shape.Tiles)
             {
@@ -58,7 +63,7 @@ namespace FallingBricks2
                 Canvas.SetLeft(rect, tile.TopLeftPoint.X);
                 Canvas.SetTop(rect, tile.TopLeftPoint.Y);
             }
-        }
+        }*/
         
         private SolidColorBrush GetBrush(Colour colour)
         {

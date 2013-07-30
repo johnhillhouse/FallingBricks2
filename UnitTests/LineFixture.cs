@@ -6,69 +6,93 @@ namespace FallingBricks2.UnitTests
     [TestClass]
     public class LineFixture
     {
-        private Point StartingPoint = new Point(100, 100);
-
-        [TestMethod]
-        public void TestNewLineCoordinatesAreCorrect()
-        {
-            var line = new Line();
-
-            var width = line.Tiles[0].Width;
-            
-            Assert.AreEqual(line.Tiles[0].TopLeftPoint.X, StartingPoint.X);
-            Assert.AreEqual(line.Tiles[0].TopLeftPoint.Y, StartingPoint.Y);
-
-            Assert.AreEqual(line.Tiles[1].TopLeftPoint.X, StartingPoint.X + width);
-            Assert.AreEqual(line.Tiles[1].TopLeftPoint.Y, StartingPoint.Y);
-
-            Assert.AreEqual(line.Tiles[2].TopLeftPoint.X, StartingPoint.X + (width * 2));
-            Assert.AreEqual(line.Tiles[2].TopLeftPoint.Y, StartingPoint.Y);
-
-            Assert.AreEqual(line.Tiles[3].TopLeftPoint.X, StartingPoint.X + (width * 3));
-            Assert.AreEqual(line.Tiles[3].TopLeftPoint.Y, StartingPoint.Y);
-        }
-
         [TestMethod]
         public void TestRotateClockWise()
         {
-            var line = new Line();
-            var height = line.Tiles[0].Height;
+            var line = GetLine(2, 3);
+
+            AssertFacingEast(line);
 
             line.RotateClockWise();
 
-            Assert.AreEqual(line.Tiles[0].TopLeftPoint.X, StartingPoint.X);
-            Assert.AreEqual(line.Tiles[0].TopLeftPoint.Y, StartingPoint.Y - height);
+            AssertFacingSouth(line);
+            
+            line.RotateClockWise();
 
-            Assert.AreEqual(line.Tiles[1].TopLeftPoint.X, StartingPoint.X);
-            Assert.AreEqual(line.Tiles[1].TopLeftPoint.Y, StartingPoint.Y);
+            AssertFacingWest(line);
 
-            Assert.AreEqual(line.Tiles[2].TopLeftPoint.X, StartingPoint.X);
-            Assert.AreEqual(line.Tiles[2].TopLeftPoint.Y, StartingPoint.Y + height);
+            line.RotateClockWise();
 
-            Assert.AreEqual(line.Tiles[3].TopLeftPoint.X, StartingPoint.X);
-            Assert.AreEqual(line.Tiles[3].TopLeftPoint.Y, StartingPoint.Y + (height * 2));
+            AssertFacingNorth(line);
+
+            line.RotateClockWise();
+
+            AssertFacingEast(line);
         }
 
-        [TestMethod]
-        public void TestRotateClockWiseTwice()
+        private void AssertFacingNorth(Line line)
         {
-            var line = new Line();
-            var width = line.Tiles[0].Width;
+            Assert.AreEqual(3, line.Tiles[0].TopLeftPoint.X);
+            Assert.AreEqual(4, line.Tiles[0].TopLeftPoint.Y);
 
-            line.RotateClockWise();
-            line.RotateClockWise();
+            Assert.AreEqual(3, line.Tiles[1].TopLeftPoint.X);
+            Assert.AreEqual(3, line.Tiles[1].TopLeftPoint.Y);
 
-            Assert.AreEqual(line.Tiles[0].TopLeftPoint.X, StartingPoint.X);
-            Assert.AreEqual(line.Tiles[0].TopLeftPoint.Y, StartingPoint.Y);
+            Assert.AreEqual(3, line.Tiles[2].TopLeftPoint.X);
+            Assert.AreEqual(2, line.Tiles[2].TopLeftPoint.Y);
 
-            Assert.AreEqual(line.Tiles[1].TopLeftPoint.X, StartingPoint.X - width);
-            Assert.AreEqual(line.Tiles[1].TopLeftPoint.Y, StartingPoint.Y);
+            Assert.AreEqual(3, line.Tiles[3].TopLeftPoint.X);
+            Assert.AreEqual(1, line.Tiles[3].TopLeftPoint.Y);
+        }
 
-            Assert.AreEqual(line.Tiles[2].TopLeftPoint.X, StartingPoint.X - (width * 2));
-            Assert.AreEqual(line.Tiles[2].TopLeftPoint.Y, StartingPoint.Y);
+        private void AssertFacingEast(Line line)
+        {
+            Assert.AreEqual(2, line.Tiles[0].TopLeftPoint.X);
+            Assert.AreEqual(3, line.Tiles[0].TopLeftPoint.Y);
 
-            Assert.AreEqual(line.Tiles[3].TopLeftPoint.X, StartingPoint.X - (width * 3));
-            Assert.AreEqual(line.Tiles[3].TopLeftPoint.Y, StartingPoint.Y);
+            Assert.AreEqual(3, line.Tiles[1].TopLeftPoint.X);
+            Assert.AreEqual(3, line.Tiles[1].TopLeftPoint.Y);
+
+            Assert.AreEqual(4, line.Tiles[2].TopLeftPoint.X);
+            Assert.AreEqual(3, line.Tiles[2].TopLeftPoint.Y);
+
+            Assert.AreEqual(5, line.Tiles[3].TopLeftPoint.X);
+            Assert.AreEqual(3, line.Tiles[3].TopLeftPoint.Y);
+        }
+
+        private void AssertFacingSouth(Line line)
+        {
+            Assert.AreEqual(3, line.Tiles[0].TopLeftPoint.X);
+            Assert.AreEqual(2, line.Tiles[0].TopLeftPoint.Y);
+
+            Assert.AreEqual(3, line.Tiles[1].TopLeftPoint.X);
+            Assert.AreEqual(3, line.Tiles[1].TopLeftPoint.Y);
+
+            Assert.AreEqual(3, line.Tiles[2].TopLeftPoint.X);
+            Assert.AreEqual(4, line.Tiles[2].TopLeftPoint.Y);
+
+            Assert.AreEqual(3, line.Tiles[3].TopLeftPoint.X);
+            Assert.AreEqual(5, line.Tiles[3].TopLeftPoint.Y);
+        }
+
+        private void AssertFacingWest(Line line)
+        {
+            Assert.AreEqual(4, line.Tiles[0].TopLeftPoint.X);
+            Assert.AreEqual(3, line.Tiles[0].TopLeftPoint.Y);
+
+            Assert.AreEqual(3, line.Tiles[1].TopLeftPoint.X);
+            Assert.AreEqual(3, line.Tiles[1].TopLeftPoint.Y);
+
+            Assert.AreEqual(2, line.Tiles[2].TopLeftPoint.X);
+            Assert.AreEqual(3, line.Tiles[2].TopLeftPoint.Y);
+
+            Assert.AreEqual(1, line.Tiles[3].TopLeftPoint.X);
+            Assert.AreEqual(3, line.Tiles[3].TopLeftPoint.Y);
+        }
+
+        private Line GetLine(int startingPointX, int startingPointY)
+        {
+            return new Line(new Point(startingPointX, startingPointY), 1, 1);
         }
     }
 }

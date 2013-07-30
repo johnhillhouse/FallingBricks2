@@ -8,15 +8,23 @@ namespace FallingBricks2
 {
     public abstract class Shape
     {
-        public Shape()
+        public Shape(int tileWidth = 20, int tileHeight = 20)
         {
-            RotationState = RotationState.North;
+            TileWidth = tileWidth;
+            TileHeight = tileHeight;
+            //    RotationState = RotationState.North;
         }
         
         //public Point TopLeftPosition { get; set; }
         public Tile[] Tiles;
         public Colour Colour { get; set; }
         protected RotationState RotationState { get; set; }
+        protected int TileWidth { get; set; }
+        protected int TileHeight { get; set; }
+        protected Tile GetNewTile()
+        {
+            return new Tile(TileWidth, TileHeight);
+        }
 
         protected virtual void RotateNorth() { RotationState = RotationState.North; }
         protected virtual void RotateEast() { RotationState = RotationState.East; }

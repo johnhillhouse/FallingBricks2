@@ -8,80 +8,94 @@ namespace FallingBricks2
 {
     public class Line : Shape
     {
-        public Line()
+        public Line(Point startingPoint)
+            : base()
         {
-            RotateEast();
+            BuildLine(startingPoint);
+        }
+        
+        public Line(Point startingPoint, int tileWidth, int tileHeight)
+            : base(tileWidth, tileHeight)
+        {
+            BuildLine(startingPoint);
         }
 
-        //public override void RotateClockWise()
-        //{
-        //    base.RotateClockWise();
-        //}
+        private void BuildLine(Point startingPoint)
+        {
+            Tiles = new Tile[4];
+            Tiles[0] = GetNewTile();
+            Point pivotPoint = new Point(startingPoint.X + Tiles[0].Width, startingPoint.Y);
+            Tiles[1] = GetNewTile();
+            Tiles[1].TopLeftPoint = pivotPoint;
+            Tiles[2] = GetNewTile();
+            Tiles[3] = GetNewTile();
+            RotateEast();
+        }
 
         protected override void RotateNorth() 
         {
             base.RotateNorth();
-            //RotateNorthOrSouth(); 
-        }
+            var tileHeight = Tiles[0].Height;
+            var pivotPoint = Tiles[1].TopLeftPoint;
 
+            Tiles[0].TopLeftPoint.Y = pivotPoint.Y + tileHeight;
+            Tiles[2].TopLeftPoint.Y = pivotPoint.Y - tileHeight;
+            Tiles[3].TopLeftPoint.Y = pivotPoint.Y - (tileHeight * 2);
+
+            SetPointXToPivotPointX(pivotPoint);
+        }
+        
         protected override void RotateEast() 
         {
             base.RotateEast();
-            //Tiles = new Tile[4];
-            //Tiles[0].TopLeftPoint.X
+            var tileWidth = Tiles[0].Width;
+            var pivotPoint = Tiles[1].TopLeftPoint;
 
-            Tiles[0] = new Tile { TopLeftPoint = new Point(100, 100) };
-            Tiles[1] = new Tile { TopLeftPoint = new Point(Tiles[0].TopLeftPoint.X + Tiles[0].Width, 100) };
-            Tiles[2] = new Tile { TopLeftPoint = new Point(Tiles[1].TopLeftPoint.X + Tiles[1].Width, 100) };
-            Tiles[3] = new Tile { TopLeftPoint = new Point(Tiles[2].TopLeftPoint.X + Tiles[2].Width, 100) };
+            Tiles[0].TopLeftPoint.X = pivotPoint.X - tileWidth;
+            Tiles[2].TopLeftPoint.X = pivotPoint.X + tileWidth;
+            Tiles[3].TopLeftPoint.X = pivotPoint.X + (tileWidth * 2);
+
+            SetPointYToPivotPointY(pivotPoint);
         }
 
         protected override void RotateSouth() 
         {
             base.RotateSouth();
-            //RotateNorthOrSouth(); 
+            var tileHeight = Tiles[0].Height;
+            var pivotPoint = Tiles[1].TopLeftPoint;
+
+            Tiles[0].TopLeftPoint.Y = pivotPoint.Y - tileHeight;
+            Tiles[2].TopLeftPoint.Y = pivotPoint.Y + tileHeight;
+            Tiles[3].TopLeftPoint.Y = pivotPoint.Y + (tileHeight * 2);
+
+            SetPointXToPivotPointX(pivotPoint);
         }
 
         protected override void RotateWest() 
         {
             base.RotateWest();
-            //RotateEastOrWest(); 
+            var tileWidth = Tiles[0].Width;
+            var pivotPoint = Tiles[1].TopLeftPoint;
+
+            Tiles[0].TopLeftPoint.X = pivotPoint.X + tileWidth;
+            Tiles[2].TopLeftPoint.X = pivotPoint.X - tileWidth;
+            Tiles[3].TopLeftPoint.X = pivotPoint.X - (tileWidth * 2);
+
+            SetPointYToPivotPointY(pivotPoint);
         }
 
-        /*private void RotateEastOrWest()
+        private void SetPointXToPivotPointX(Point pivotPoint)
         {
-            Tiles = new Tile[4];
-            Tiles[0] = new Tile { TopLeftPoint = new Point(100, 100) };
-            Tiles[1] = new Tile { TopLeftPoint = new Point(Tiles[0].TopLeftPoint.X + Tiles[0].Width, 100) };
-            Tiles[2] = new Tile { TopLeftPoint = new Point(Tiles[1].TopLeftPoint.X + Tiles[1].Width, 100) };
-            Tiles[3] = new Tile { TopLeftPoint = new Point(Tiles[2].TopLeftPoint.X + Tiles[2].Width, 100) };
+            Tiles[0].TopLeftPoint.X = pivotPoint.X;
+            Tiles[2].TopLeftPoint.X = pivotPoint.X;
+            Tiles[3].TopLeftPoint.X = pivotPoint.X;
         }
 
-        private void RotateNorthOrSouth()
+        private void SetPointYToPivotPointY(Point pivotPoint)
         {
-            Tiles = new Tile[4];
-            Tiles[0] = new Tile { TopLeftPoint = new Point(100, 100) };
-            Tiles[1] = new Tile { TopLeftPoint = new Point(100, Tiles[0].TopLeftPoint.Y + Tiles[0].Height) };
-            Tiles[2] = new Tile { TopLeftPoint = new Point(100, Tiles[1].TopLeftPoint.Y + Tiles[1].Height) };
-            Tiles[3] = new Tile { TopLeftPoint = new Point(100, Tiles[2].TopLeftPoint.Y + Tiles[2].Height) };
+            Tiles[0].TopLeftPoint.Y = pivotPoint.Y;
+            Tiles[2].TopLeftPoint.Y = pivotPoint.Y;
+            Tiles[3].TopLeftPoint.Y = pivotPoint.Y;
         }
-
-        private void RotateEastOrWest()
-        {
-            Tiles = new Tile[4];
-            Tiles[0] = new Tile { TopLeftPoint = new Point(100, 100) };
-            Tiles[1] = new Tile { TopLeftPoint = new Point(Tiles[0].TopLeftPoint.X + Tiles[0].Width, 100) };
-            Tiles[2] = new Tile { TopLeftPoint = new Point(Tiles[1].TopLeftPoint.X + Tiles[1].Width, 100) };
-            Tiles[3] = new Tile { TopLeftPoint = new Point(Tiles[2].TopLeftPoint.X + Tiles[2].Width, 100) };
-        }
-
-        private void RotateNorthOrSouth()
-        {
-            Tiles = new Tile[4];
-            Tiles[0] = new Tile { TopLeftPoint = new Point(100, 100) };
-            Tiles[1] = new Tile { TopLeftPoint = new Point(100, Tiles[0].TopLeftPoint.Y + Tiles[0].Height) };
-            Tiles[2] = new Tile { TopLeftPoint = new Point(100, Tiles[1].TopLeftPoint.Y + Tiles[1].Height) };
-            Tiles[3] = new Tile { TopLeftPoint = new Point(100, Tiles[2].TopLeftPoint.Y + Tiles[2].Height) };
-        }*/
     }
 }
