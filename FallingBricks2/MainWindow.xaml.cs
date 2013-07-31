@@ -25,7 +25,7 @@ namespace FallingBricks2
         public MainWindow()
         {
             InitializeComponent();
-            RunGame();
+            //RunGame();
         }
 
         private void RunGame()
