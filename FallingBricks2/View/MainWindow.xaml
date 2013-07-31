@@ -1,6 +1,8 @@
 ﻿<Window x:Class="FallingBricks2.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:FallingBricks2.View"
+        xmlns:model="clr-namespace:FallingBricks2.Model.UI"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
         <Canvas 
@@ -12,5 +14,6 @@
             Uid="board"
             Name="board"/>
 
+        <!--controls:GameView x:Name="viewGame" /-->
     </Grid>
 </Window>
