@@ -13,6 +13,6 @@
             Uid="board"
             Name="board"/>
 
-        <!--controls:GameView x:Name="gameView" /-->
+        <controls:GameView x:Name="gameView" />
     </Grid>
 </Window>

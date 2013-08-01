@@ -23,7 +23,27 @@ namespace FallingBricks2.Controls
         public GameGrid()
         {
             InitializeComponent();
+            PopulateGridWithBackgroundTiles();
             PaintShape();
+        }
+
+        private void PopulateGridWithBackgroundTiles()
+        {
+            for (int i = 0; i < grid.RowDefinitions.Count(); i++)
+            {
+                for (int j = 0; j < grid.ColumnDefinitions.Count(); j++)
+                {
+                    //Create a new label as "part" and add it to the grid
+                    Label label = new Label { 
+                        Background = new SolidColorBrush(Colors.Transparent),
+                        BorderBrush = new SolidColorBrush(Colors.Transparent),
+                        BorderThickness = new Thickness(1.0)
+                    };
+                    grid.Children.Add(label);
+                    Grid.SetRow(label, i);
+                    Grid.SetColumn(label, j);
+                }
+            }
         }
 
         /// <summary>
@@ -36,16 +56,10 @@ namespace FallingBricks2.Controls
 
             foreach (var tile in shape.Tiles)
             {
-                var uiTile = grid.Children.Cast<Control>().Where(e => Grid.GetRow(e) == tile.TopLeftPoint.Y && Grid.GetColumn(e) == tile.TopLeftPoint.X).Single();
-                uiTile.Background = new SolidColorBrush(Colors.DarkKhaki);
+                var uiTile = grid.Children.Cast<Control>().Where(e => Grid.GetRow(e) == tile.Position.Y && Grid.GetColumn(e) == tile.Position.X).Single();
+                uiTile.Background = new SolidColorBrush(Colors.Red);
                 //uiTile.Background = new SolidColorBrush(shape.Colour);
             }
-            
-            //foreach (Part p in Tetris.CurrentBlock.Parts)
-            //{
-            //    var __uiPart = grid.Children.Cast<Control>().Where(e => Grid.GetRow(e) == p.PosY && Grid.GetColumn(e) == p.PosX).Single();
-            //    __uiPart.Background = new SolidColorBrush(p.ParentBlock.Color);
-            //}
         }
     }
 }

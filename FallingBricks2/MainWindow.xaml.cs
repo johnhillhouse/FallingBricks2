@@ -25,57 +25,6 @@ namespace FallingBricks2
         public MainWindow()
         {
             InitializeComponent();
-            //RunGame();
-        }
-
-        private void RunGame()
-        {
-            var shape = ShapeFactory.GetRandomShape();
-            DrawShape(shape);
-            //ClearShape(shape);
-            shape.RotateClockWise();
-            DrawShape(shape);
-
-            shape.RotateClockWise();
-            DrawShape(shape);
-
-            shape.RotateClockWise();
-            DrawShape(shape);
-        }
-
-        private void DrawShape(Shape shape)
-        {
-            foreach (var tile in shape.Tiles)
-            {
-                Rectangle rect = new Rectangle { Width = tile.Width, Height = tile.Height, Fill = GetBrush(shape.Colour) };
-                board.Children.Add(rect);
-                Canvas.SetLeft(rect, tile.TopLeftPoint.X);
-                Canvas.SetTop(rect, tile.TopLeftPoint.Y);
-            }
-        }
-
-        /*private void ClearShape(Shape shape)
-        {
-            foreach (var tile in shape.Tiles)
-            {
-                Rectangle rect = new Rectangle { Width = tile.Width, Height = tile.Height, Fill = Brushes.White };
-                board.Children.Add(rect);
-                Canvas.SetLeft(rect, tile.TopLeftPoint.X);
-                Canvas.SetTop(rect, tile.TopLeftPoint.Y);
-            }
-        }*/
-        
-        private SolidColorBrush GetBrush(Colour colour)
-        {
-            switch (colour)
-            {
-                case Colour.Blue: return Brushes.Blue;
-                case Colour.Green: return Brushes.Green;
-                case Colour.Orange: return Brushes.Orange;
-                case Colour.Red: return Brushes.Red;
-                case Colour.Yellow: return Brushes.Yellow;
-                default: return Brushes.Brown;
-            }
         }
     }
 }

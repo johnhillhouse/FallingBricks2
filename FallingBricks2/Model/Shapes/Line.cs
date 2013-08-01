@@ -9,13 +9,6 @@ namespace FallingBricks2
     public class Line : Shape
     {
         public Line(Point startingPoint)
-            : base()
-        {
-            BuildLine(startingPoint);
-        }
-        
-        public Line(Point startingPoint, int tileWidth, int tileHeight)
-            : base(tileWidth, tileHeight)
         {
             BuildLine(startingPoint);
         }
@@ -23,24 +16,23 @@ namespace FallingBricks2
         private void BuildLine(Point startingPoint)
         {
             Tiles = new Tile[4];
-            Tiles[0] = GetNewTile();
-            Point pivotPoint = new Point(startingPoint.X + Tiles[0].Width, startingPoint.Y);
-            Tiles[1] = GetNewTile();
-            Tiles[1].TopLeftPoint = pivotPoint;
-            Tiles[2] = GetNewTile();
-            Tiles[3] = GetNewTile();
+            Tiles[0] = new Tile();
+            Point pivotPoint = new Point(startingPoint.X + 1, startingPoint.Y);
+            Tiles[1] = new Tile();
+            Tiles[1].Position = pivotPoint;
+            Tiles[2] = new Tile();
+            Tiles[3] = new Tile();
             RotateEast();
         }
 
         protected override void RotateNorth() 
         {
             base.RotateNorth();
-            var tileHeight = Tiles[0].Height;
-            var pivotPoint = Tiles[1].TopLeftPoint;
+            var pivotPoint = Tiles[1].Position;
 
-            Tiles[0].TopLeftPoint.Y = pivotPoint.Y + tileHeight;
-            Tiles[2].TopLeftPoint.Y = pivotPoint.Y - tileHeight;
-            Tiles[3].TopLeftPoint.Y = pivotPoint.Y - (tileHeight * 2);
+            Tiles[0].Position.Y = pivotPoint.Y + 1;
+            Tiles[2].Position.Y = pivotPoint.Y - 1;
+            Tiles[3].Position.Y = pivotPoint.Y - 2;
 
             SetPointXToPivotPointX(pivotPoint);
         }
@@ -48,12 +40,11 @@ namespace FallingBricks2
         protected override void RotateEast() 
         {
             base.RotateEast();
-            var tileWidth = Tiles[0].Width;
-            var pivotPoint = Tiles[1].TopLeftPoint;
+            var pivotPoint = Tiles[1].Position;
 
-            Tiles[0].TopLeftPoint.X = pivotPoint.X - tileWidth;
-            Tiles[2].TopLeftPoint.X = pivotPoint.X + tileWidth;
-            Tiles[3].TopLeftPoint.X = pivotPoint.X + (tileWidth * 2);
+            Tiles[0].Position.X = pivotPoint.X - 1;
+            Tiles[2].Position.X = pivotPoint.X + 1;
+            Tiles[3].Position.X = pivotPoint.X + 2;
 
             SetPointYToPivotPointY(pivotPoint);
         }
@@ -61,12 +52,11 @@ namespace FallingBricks2
         protected override void RotateSouth() 
         {
             base.RotateSouth();
-            var tileHeight = Tiles[0].Height;
-            var pivotPoint = Tiles[1].TopLeftPoint;
+            var pivotPoint = Tiles[1].Position;
 
-            Tiles[0].TopLeftPoint.Y = pivotPoint.Y - tileHeight;
-            Tiles[2].TopLeftPoint.Y = pivotPoint.Y + tileHeight;
-            Tiles[3].TopLeftPoint.Y = pivotPoint.Y + (tileHeight * 2);
+            Tiles[0].Position.Y = pivotPoint.Y - 1;
+            Tiles[2].Position.Y = pivotPoint.Y + 1;
+            Tiles[3].Position.Y = pivotPoint.Y + 2;
 
             SetPointXToPivotPointX(pivotPoint);
         }
@@ -74,28 +64,27 @@ namespace FallingBricks2
         protected override void RotateWest() 
         {
             base.RotateWest();
-            var tileWidth = Tiles[0].Width;
-            var pivotPoint = Tiles[1].TopLeftPoint;
+            var pivotPoint = Tiles[1].Position;
 
-            Tiles[0].TopLeftPoint.X = pivotPoint.X + tileWidth;
-            Tiles[2].TopLeftPoint.X = pivotPoint.X - tileWidth;
-            Tiles[3].TopLeftPoint.X = pivotPoint.X - (tileWidth * 2);
+            Tiles[0].Position.X = pivotPoint.X + 1;
+            Tiles[2].Position.X = pivotPoint.X - 1;
+            Tiles[3].Position.X = pivotPoint.X - 2;
 
             SetPointYToPivotPointY(pivotPoint);
         }
 
         private void SetPointXToPivotPointX(Point pivotPoint)
         {
-            Tiles[0].TopLeftPoint.X = pivotPoint.X;
-            Tiles[2].TopLeftPoint.X = pivotPoint.X;
-            Tiles[3].TopLeftPoint.X = pivotPoint.X;
+            Tiles[0].Position.X = pivotPoint.X;
+            Tiles[2].Position.X = pivotPoint.X;
+            Tiles[3].Position.X = pivotPoint.X;
         }
 
         private void SetPointYToPivotPointY(Point pivotPoint)
         {
-            Tiles[0].TopLeftPoint.Y = pivotPoint.Y;
-            Tiles[2].TopLeftPoint.Y = pivotPoint.Y;
-            Tiles[3].TopLeftPoint.Y = pivotPoint.Y;
+            Tiles[0].Position.Y = pivotPoint.Y;
+            Tiles[2].Position.Y = pivotPoint.Y;
+            Tiles[3].Position.Y = pivotPoint.Y;
         }
     }
 }

@@ -10,12 +10,12 @@ namespace FallingBricks2
     {
         public static Shape GetRandomShape()
         {
-            var startingPoint = new Point(100, 100);
+            var startingPosition = new Point(3, 3);
             var random = new Random();
             switch (random.Next(1, 3))
             {
-                case 1: return new Line(startingPoint) { Colour = GetRandomColour() };
-                case 2: return new Line(startingPoint) { Colour = GetRandomColour() };
+                case 1: return new Line(startingPosition) { Colour = GetRandomColour() };
+                case 2: return new Line(startingPosition) { Colour = GetRandomColour() };
                 default: return new Square { Colour = GetRandomColour() };
             }
         }
