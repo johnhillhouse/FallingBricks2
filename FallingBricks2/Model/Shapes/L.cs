@@ -10,7 +10,7 @@ namespace FallingBricks2
     {
         public L()
         {
-
+            Colour = Colour.Blue;
         }
     }
 }

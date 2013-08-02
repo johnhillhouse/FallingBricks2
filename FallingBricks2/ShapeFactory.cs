@@ -14,13 +14,13 @@ namespace FallingBricks2
             var random = new Random();
             switch (random.Next(1, 3))
             {
-                case 1: return new Line(startingPosition) { Colour = GetRandomColour() };
-                case 2: return new Line(startingPosition) { Colour = GetRandomColour() };
-                default: return new Square { Colour = GetRandomColour() };
+                case 1: return new Line(startingPosition);
+                case 2: return new Line(startingPosition);
+                default: return new Square();
             }
         }
 
-        private static Colour GetRandomColour()
+        /*private static Colour GetRandomColour()
         {
             var random = new Random();
             switch (random.Next(1, 6))
@@ -32,6 +32,6 @@ namespace FallingBricks2
                 case 5: return Colour.Yellow;
             }
             return Colour.Blue;
-        }
+        }*/
     }
 }

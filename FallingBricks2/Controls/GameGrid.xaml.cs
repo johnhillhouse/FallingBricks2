@@ -34,7 +34,7 @@ namespace FallingBricks2.Controls
                 for (int j = 0; j < grid.ColumnDefinitions.Count(); j++)
                 {
                     //Create a new label as "part" and add it to the grid
-                    Label label = new Label { 
+                    Label label = new Label {
                         Background = new SolidColorBrush(Colors.Transparent),
                         BorderBrush = new SolidColorBrush(Colors.Transparent),
                         BorderThickness = new Thickness(1.0)
@@ -56,10 +56,28 @@ namespace FallingBricks2.Controls
 
             foreach (var tile in shape.Tiles)
             {
-                var uiTile = grid.Children.Cast<Control>().Where(e => Grid.GetRow(e) == tile.Position.Y && Grid.GetColumn(e) == tile.Position.X).Single();
-                uiTile.Background = new SolidColorBrush(Colors.Red);
-                //uiTile.Background = new SolidColorBrush(shape.Colour);
+                var uiTile = (Control)grid.Children[GetGridIndex(tile.Position)];
+                uiTile.Background = new SolidColorBrush(GetColour(shape.Colour));
             }
+        }
+
+        private Color GetColour(Colour colour)
+        {
+            switch (colour)
+            {
+                case Colour.Blue: return Colors.Blue;
+                case Colour.Green: return Colors.Green;
+                case Colour.Orange: return Colors.Orange;
+                case Colour.Red: return Colors.Red;
+                case Colour.Yellow: return Colors.Yellow;
+            }
+
+            return Colors.Blue;
+        }
+
+        private int GetGridIndex(Point position)
+        {
+            return (position.Y * 10) + position.X;
         }
     }
 }

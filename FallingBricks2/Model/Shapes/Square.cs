@@ -10,6 +10,7 @@ namespace FallingBricks2
     {
         public Square()
         {
+            Colour = Colour.Red;
         }
     }
 }

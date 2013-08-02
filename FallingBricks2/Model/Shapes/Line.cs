@@ -15,6 +15,8 @@ namespace FallingBricks2
 
         private void BuildLine(Point startingPoint)
         {
+            Colour = Colour.Green;
+
             Tiles = new Tile[4];
             Tiles[0] = new Tile();
             Point pivotPoint = new Point(startingPoint.X + 1, startingPoint.Y);
