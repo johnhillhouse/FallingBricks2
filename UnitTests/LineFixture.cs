@@ -7,6 +7,18 @@ namespace FallingBricks2.UnitTests
     public class LineFixture
     {
         [TestMethod]
+        public void TestMoveDown()
+        {
+            var line = GetLine(2, 3);
+            line.MoveDown();
+
+            Assert.AreEqual(4, line.Tiles[0].Position.Y);
+            Assert.AreEqual(4, line.Tiles[1].Position.Y);
+            Assert.AreEqual(4, line.Tiles[2].Position.Y);
+            Assert.AreEqual(4, line.Tiles[3].Position.Y);
+        }
+        
+        [TestMethod]
         public void TestRotateClockWise()
         {
             var line = GetLine(2, 3);

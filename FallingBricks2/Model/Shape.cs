@@ -33,6 +33,14 @@ namespace FallingBricks2
         }
 
         // public abstract void RotateAntiClockwise() { }
+
+        public void MoveDown()
+        {
+            Tiles[0].Position.Y = Tiles[0].Position.Y + 1;
+            Tiles[1].Position.Y = Tiles[1].Position.Y + 1;
+            Tiles[2].Position.Y = Tiles[2].Position.Y + 1;
+            Tiles[3].Position.Y = Tiles[3].Position.Y + 1;
+        }
     }
 
     public enum RotationState
