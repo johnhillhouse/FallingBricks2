@@ -40,6 +40,7 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
+            <Button Grid.ColumnSpan="4" Content="Button" HorizontalAlignment="Left" Margin="5,0,0,0" Grid.Row="17" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
         </Grid>
     </Border>
 </UserControl>

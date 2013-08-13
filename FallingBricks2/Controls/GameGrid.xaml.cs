@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace FallingBricks2.Controls
 {
@@ -20,11 +21,31 @@ namespace FallingBricks2.Controls
     /// </summary>
     public partial class GameGrid : UserControl
     {
+        private Shape _currentShape;
+        private DispatcherTimer GameTimer { get; set; }
         public GameGrid()
         {
             InitializeComponent();
-            PopulateGridWithBackgroundTiles();
+
+            // Setting up game timer
+            GameTimer = new DispatcherTimer();
+            GameTimer.Interval = TimeSpan.FromMilliseconds(800);
+            GameTimer.Tick += new EventHandler(TetrisTick);
+
+            _currentShape = ShapeFactory.GetRandomShape();
+        }
+
+        private void TetrisTick(object sender, EventArgs e)
+        {
+            ClearShape();
+            _currentShape.MoveDown();
             PaintShape();
+        }
+
+        private void StartGame()
+        {
+            PopulateGridWithBackgroundTiles();
+            GameTimer.Start();
         }
 
         private void PopulateGridWithBackgroundTiles()
@@ -46,18 +67,23 @@ namespace FallingBricks2.Controls
             }
         }
 
-        /// <summary>
-        /// Draw the CurrentBlock on the grid
-        /// Not a good method to get the UIElements, because the complete Grid gets iterated through)
-        /// </summary>
         private void PaintShape()
         {
-            var shape = ShapeFactory.GetRandomShape();
 
-            foreach (var tile in shape.Tiles)
+            foreach (var tile in _currentShape.Tiles)
             {
                 var uiTile = (Control)grid.Children[GetGridIndex(tile.Position)];
-                uiTile.Background = new SolidColorBrush(GetColour(shape.Colour));
+                uiTile.Background = new SolidColorBrush(GetColour(_currentShape.Colour));
+            }
+        }
+
+        private void ClearShape()
+        {
+
+            foreach (var tile in _currentShape.Tiles)
+            {
+                var uiTile = (Control)grid.Children[GetGridIndex(tile.Position)];
+                uiTile.Background = new SolidColorBrush(Colors.Transparent);
             }
         }
 
@@ -78,6 +104,11 @@ namespace FallingBricks2.Controls
         private int GetGridIndex(Point position)
         {
             return (position.Y * 10) + position.X;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            StartGame();
         }
     }
 }
