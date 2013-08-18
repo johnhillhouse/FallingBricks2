@@ -23,6 +23,8 @@ namespace FallingBricks2.Controls
     {
         private Shape _currentShape;
         private DispatcherTimer GameTimer { get; set; }
+        public int MaxYValue { get { return grid.RowDefinitions.Count(); } }
+
         public GameGrid()
         {
             InitializeComponent();
@@ -32,7 +34,7 @@ namespace FallingBricks2.Controls
             GameTimer.Interval = TimeSpan.FromMilliseconds(800);
             GameTimer.Tick += new EventHandler(TetrisTick);
 
-            _currentShape = ShapeFactory.GetRandomShape();
+            _currentShape = ShapeFactory.GetRandomShape(this);
         }
 
         private void TetrisTick(object sender, EventArgs e)

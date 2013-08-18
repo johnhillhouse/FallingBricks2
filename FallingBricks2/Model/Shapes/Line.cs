@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FallingBricks2.Controls;
 
 namespace FallingBricks2
 {
     public class Line : Shape
     {
-        public Line(Point startingPoint)
+        public Line(GameGrid gameGrid, Point startingPoint): base(gameGrid)
         {
             BuildLine(startingPoint);
         }
