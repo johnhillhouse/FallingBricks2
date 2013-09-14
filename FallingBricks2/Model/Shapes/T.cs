@@ -9,7 +9,7 @@ namespace FallingBricks2
 {
     public class T: Shape
     {
-        public T(GameGrid gameGrid): base(gameGrid)
+        public T(): base()
         {
             Colour = Colour.Yellow;
         }

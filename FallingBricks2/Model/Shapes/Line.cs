@@ -9,7 +9,7 @@ namespace FallingBricks2
 {
     public class Line : Shape
     {
-        public Line(GameGrid gameGrid, Point startingPoint): base(gameGrid)
+        public Line(Point startingPoint): base()
         {
             BuildLine(startingPoint);
         }

@@ -9,11 +9,9 @@ namespace FallingBricks2
 {
     public abstract class Shape
     {
-        public Shape(GameGrid gameGrid)
+        public Shape()
         {
-            _gameGrid = gameGrid;
         }
-        private GameGrid _gameGrid;
         public Tile[] Tiles;
         public Colour Colour { get; set; }
         protected RotationState RotationState { get; set; }
@@ -42,24 +40,10 @@ namespace FallingBricks2
 
         public void MoveDown()
         {
-            if (Collision())
-                return;
-
             Tiles[0].Position.Y = Tiles[0].Position.Y + 1;
             Tiles[1].Position.Y = Tiles[1].Position.Y + 1;
             Tiles[2].Position.Y = Tiles[2].Position.Y + 1;
             Tiles[3].Position.Y = Tiles[3].Position.Y + 1;
-        }
-
-        private bool Collision()
-        {
-            if (Tiles[0].Position.Y >= _gameGrid.MaxYValue - 1 ||
-                Tiles[1].Position.Y >= _gameGrid.MaxYValue - 1 ||
-                Tiles[2].Position.Y >= _gameGrid.MaxYValue - 1 ||
-                Tiles[3].Position.Y >= _gameGrid.MaxYValue - 1)
-                return true;
-
-            return false;
         }
     }
 
