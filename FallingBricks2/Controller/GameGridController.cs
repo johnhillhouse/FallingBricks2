@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FallingBricks2.Controls;
+using FallingBricks2.View.Controls;
+using FallingBricks2.Model;
 using System.Windows.Media;
 using System.Windows.Threading;
 
@@ -14,11 +15,12 @@ namespace FallingBricks2.Controller
         private IGameGrid _gameGrid;
         private Shape _activeShape;
         private DispatcherTimer GameTimer { get; set; }
-        
+        private ICollisionDetector _collisionDetector;
         public GameGridController(IGameGrid gameGrid)
         {
             _gameGrid = gameGrid;
             _activeShape = ShapeFactory.GetRandomShape();
+            _collisionDetector = (ICollisionDetector)new CollisionDetector(_gameGrid.MaxYValue);
 
             GameTimer = new DispatcherTimer();
             GameTimer.Interval = TimeSpan.FromMilliseconds(800);
@@ -34,7 +36,7 @@ namespace FallingBricks2.Controller
 
         private void MoveDown()
         {
-            if(!Collision())
+            if (!_collisionDetector.Collision(_activeShape))
                 _activeShape.MoveDown();
         }
 
@@ -53,17 +55,6 @@ namespace FallingBricks2.Controller
             {
                 _gameGrid.ClearShape(tile.Position);
             }
-        }
-
-        private bool Collision()
-        {
-            if (_activeShape.Tiles[0].Position.Y >= _gameGrid.MaxYValue - 1 ||
-                _activeShape.Tiles[1].Position.Y >= _gameGrid.MaxYValue - 1 ||
-                _activeShape.Tiles[2].Position.Y >= _gameGrid.MaxYValue - 1 ||
-                _activeShape.Tiles[3].Position.Y >= _gameGrid.MaxYValue - 1)
-                return true;
-
-            return false;
         }
 
         public void StartGame()

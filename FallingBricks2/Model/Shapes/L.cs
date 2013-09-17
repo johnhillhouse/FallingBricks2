@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FallingBricks2.Controls;
+using FallingBricks2.View.Controls;
 
 namespace FallingBricks2
 {

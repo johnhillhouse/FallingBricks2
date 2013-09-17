@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:model="clr-namespace:FallingBricks2.Model.UI"
-      xmlns:controls="clr-namespace:FallingBricks2.Controls"                    
+      xmlns:controls="clr-namespace:FallingBricks2.View.Controls"                    
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300">
 

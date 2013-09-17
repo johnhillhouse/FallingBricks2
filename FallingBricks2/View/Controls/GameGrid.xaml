@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="FallingBricks2.Controls.GameGrid"
+﻿<UserControl x:Class="FallingBricks2.View.Controls.GameGrid"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 

@@ -6,7 +6,6 @@ namespace FallingBricks2.UnitTests
     [TestClass]
     public class LineFixture
     {
-        /*
         [TestMethod]
         public void TestMoveDown()
         {
@@ -42,7 +41,6 @@ namespace FallingBricks2.UnitTests
 
             AssertFacingEast(line);
         }
-         */
 
         private void AssertFacingNorth(Line line)
         {
@@ -104,9 +102,9 @@ namespace FallingBricks2.UnitTests
             Assert.AreEqual(3, line.Tiles[3].Position.Y);
         }
 
-        private void GetLine(int startingPointX, int startingPointY)
+        private Line GetLine(int startingPointX, int startingPointY)
         {
-            //return new Line(new Point(startingPointX, startingPointY));
+            return new Line(new Point(startingPointX, startingPointY));
         }
     }
 }

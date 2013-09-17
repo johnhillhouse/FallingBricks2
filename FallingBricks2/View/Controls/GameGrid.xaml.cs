@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using FallingBricks2.Controller;
 
-namespace FallingBricks2.Controls
+namespace FallingBricks2.View.Controls
 {
     public interface IGameGrid
     {

@@ -34,6 +34,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\packages\Castle.Core.3.2.0\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor">
+      <HintPath>..\packages\Castle.Windsor.3.2.1\lib\net45\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="Rhino.Mocks">
+      <HintPath>..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -53,8 +62,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controller\CollisionDetector.cs" />
     <Compile Include="Controller\GameGridController.cs" />
-    <Compile Include="Controls\GameGrid.xaml.cs">
+    <Compile Include="View\Controls\GameGrid.xaml.cs">
       <DependentUpon>GameGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Colour.cs" />
@@ -64,11 +74,11 @@
     <Compile Include="Model\Shapes\S.cs" />
     <Compile Include="Model\Shape.cs" />
     <Compile Include="Model\UI\OverlayUserControl.cs" />
-    <Compile Include="ShapeFactory.cs" />
+    <Compile Include="Model\ShapeFactory.cs" />
     <Compile Include="Model\Shapes\Square.cs" />
     <Compile Include="Model\Shapes\T.cs" />
     <Compile Include="Model\Tile.cs" />
-    <Page Include="Controls\GameGrid.xaml">
+    <Page Include="View\Controls\GameGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -111,6 +121,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
