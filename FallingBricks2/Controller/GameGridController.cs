@@ -13,14 +13,16 @@ namespace FallingBricks2.Controller
     public class GameGridController
     {
         private IGameGrid _gameGrid;
-        private Shape _activeShape;
+        private Shape _fallingShape;
         private DispatcherTimer GameTimer { get; set; }
         private ICollisionDetector _collisionDetector;
+        private List<Shape> _fallenShapes;
+        
         public GameGridController(IGameGrid gameGrid)
         {
             _gameGrid = gameGrid;
-            _activeShape = ShapeFactory.GetRandomShape();
             _collisionDetector = (ICollisionDetector)new CollisionDetector(_gameGrid.MaxYValue);
+            _fallenShapes = new List<Shape>();
 
             GameTimer = new DispatcherTimer();
             GameTimer.Interval = TimeSpan.FromMilliseconds(800);
@@ -29,36 +31,53 @@ namespace FallingBricks2.Controller
 
         private void TetrisTick(object sender, EventArgs e)
         {
-            ClearShape();
+            ClearShape(_fallingShape);
             MoveDown();
-            PaintShape();
+            PaintShape(_fallingShape);
         }
 
         private void MoveDown()
         {
-            if (!_collisionDetector.Collision(_activeShape))
-                _activeShape.MoveDown();
-        }
-
-        private void PaintShape()
-        {
-
-            foreach (var tile in _activeShape.Tiles)
+            if (!_collisionDetector.CollisionDown(_fallingShape, _fallenShapes))
             {
-                _gameGrid.PaintShape(tile.Position, GetColour(_activeShape.Colour));
+                _fallingShape.MoveDown();
+            }
+            else
+            {
+                var clonedShape = _fallingShape.Clone();
+                _fallenShapes.Add(clonedShape);
+                PaintFallenShapes();
+                _fallingShape = ShapeFactory.GetRandomShape();
             }
         }
 
-        private void ClearShape()
+        private void PaintFallenShapes()
         {
-            foreach (var tile in _activeShape.Tiles)
+            foreach (var shape in _fallenShapes)
             {
-                _gameGrid.ClearShape(tile.Position);
+                PaintShape(shape);
+            }
+        }
+        
+        private void PaintShape(Shape shape)
+        {
+            foreach (var tile in shape.Tiles)
+            {
+                _gameGrid.PaintTile(tile.Position, GetColour(shape.Colour));
+            }
+        }
+
+        private void ClearShape(Shape shape)
+        {
+            foreach (var tile in shape.Tiles)
+            {
+                _gameGrid.ClearTile(tile.Position);
             }
         }
 
         public void StartGame()
         {
+            _fallingShape = ShapeFactory.GetRandomShape();
             GameTimer.Start();
         }
 

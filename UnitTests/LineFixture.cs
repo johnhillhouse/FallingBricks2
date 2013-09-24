@@ -17,6 +17,21 @@ namespace FallingBricks2.UnitTests
             Assert.AreEqual(4, line.Tiles[2].Position.Y);
             Assert.AreEqual(4, line.Tiles[3].Position.Y);
         }
+
+        //TODO Clone test for every shape
+        [TestMethod]
+        public void Clone()
+        {
+            var line = GetLine(1, 2);
+            var clonedLine = line.Clone();
+            Assert.AreNotEqual(clonedLine, line);
+            for (int i = 0; i <= 3; i++)
+            {
+                Assert.AreEqual(clonedLine.Tiles[i].Position.X, line.Tiles[i].Position.X);
+                Assert.AreEqual(clonedLine.Tiles[i].Position.Y, line.Tiles[i].Position.Y);
+            }
+            Assert.AreEqual(clonedLine.Colour, line.Colour);
+        }
         
         [TestMethod]
         public void TestRotateClockWise()
@@ -38,6 +53,30 @@ namespace FallingBricks2.UnitTests
             AssertFacingNorth(line);
 
             line.RotateClockWise();
+
+            AssertFacingEast(line);
+        }
+
+        [TestMethod]
+        public void TestRotateAntiClockWise()
+        {
+            var line = GetLine(2, 3);
+
+            AssertFacingEast(line);
+
+            line.RotateAntiClockWise();
+
+            AssertFacingNorth(line);
+
+            line.RotateAntiClockWise();
+
+            AssertFacingWest(line);
+
+            line.RotateAntiClockWise();
+
+            AssertFacingSouth(line);
+
+            line.RotateAntiClockWise();
 
             AssertFacingEast(line);
         }

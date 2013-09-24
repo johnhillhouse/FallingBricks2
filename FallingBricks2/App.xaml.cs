@@ -19,13 +19,9 @@ namespace FallingBricks2
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            //base.OnStartup(e);
             var bootstrapper = new Bootstrapper();
             bootstrapper.Bootstrap();
         }
-
-
-
     }
 
     public class Bootstrapper
@@ -34,8 +30,13 @@ namespace FallingBricks2
         internal void Bootstrap()
         {
             _container = new WindsorContainer();
+            _container.Register(Component.For<MainWindow>());
             _container.Register(Component.For<GameGridController>());
             _container.Register(Component.For<IGameGrid>().ImplementedBy<GameGrid>());
+            _container.Register(Component.For<ICollisionDetector>().ImplementedBy<CollisionDetector>());
+
+            var mainWindow = _container.Resolve<MainWindow>();
+            mainWindow.Show();
 
 
             //TODO this goes in the test

@@ -9,9 +9,26 @@ namespace FallingBricks2
 {
     public class Line : Shape
     {
-        public Line(Point startingPoint): base()
+        public Line()
+        {
+        }
+        
+        public Line(Point startingPoint)
         {
             BuildLine(startingPoint);
+        }
+
+        public override Shape Clone()
+        {
+            var tiles = new Tile[4];
+            var i = 0;
+            foreach(var tile in this.Tiles)
+            {
+                tiles[i] = new Tile{ Position = new Point(tile.Position.X, tile.Position.Y) };
+                i++;
+            }
+
+            return new Line { Tiles = tiles, Colour = this.Colour };
         }
 
         private void BuildLine(Point startingPoint)

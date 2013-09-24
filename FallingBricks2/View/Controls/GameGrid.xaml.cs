@@ -19,8 +19,8 @@ namespace FallingBricks2.View.Controls
 {
     public interface IGameGrid
     {
-        void PaintShape(Point tilePosition, Color colour);
-        void ClearShape(Point tilePosition);
+        void PaintTile(Point tilePosition, Color colour);
+        void ClearTile(Point tilePosition);
         int MaxYValue { get; }
     }
 
@@ -28,7 +28,6 @@ namespace FallingBricks2.View.Controls
     public partial class GameGrid : UserControl, IGameGrid
     {
         public int MaxYValue { get { return grid.RowDefinitions.Count(); } }
-
         public GameGrid()
         {
             InitializeComponent();
@@ -54,12 +53,12 @@ namespace FallingBricks2.View.Controls
             }
         }
 
-        public void PaintShape(Point tilePosition, Color colour)
+        public void PaintTile(Point tilePosition, Color colour)
         {
             ((Control)grid.Children[GetGridIndex(tilePosition)]).Background = new SolidColorBrush(colour);
         }
 
-        public void ClearShape(Point tilePosition)
+        public void ClearTile(Point tilePosition)
         {
             ((Control)grid.Children[GetGridIndex(tilePosition)]).Background = new SolidColorBrush(Colors.Transparent);
         }

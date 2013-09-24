@@ -36,7 +36,22 @@ namespace FallingBricks2
             }
         }
 
-        // public abstract void RotateAntiClockwise() { }
+        public virtual void RotateAntiClockWise()
+        {
+            switch (RotationState)
+            {
+                case RotationState.North: RotateWest();
+                    break;
+                case RotationState.West: RotateSouth();
+                    break;
+                case RotationState.South: RotateEast();
+                    break;
+                case RotationState.East: RotateNorth();
+                    break;
+            }
+        }
+
+        public abstract Shape Clone();
 
         public void MoveDown()
         {

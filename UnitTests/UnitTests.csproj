@@ -61,6 +61,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CollisionDetectorFixture.cs" />
+    <Compile Include="SquareFixture.cs" />
     <Compile Include="LineFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

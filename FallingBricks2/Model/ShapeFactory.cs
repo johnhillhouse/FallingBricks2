@@ -15,9 +15,9 @@ namespace FallingBricks2.Model
             var random = new Random();
             switch (random.Next(1, 3))
             {
-                case 1: return new Line(startingPosition);
+                case 1: return new Square(startingPosition);
                 case 2: return new Line(startingPosition);
-                default: return new Square();
+                default: return new Square(startingPosition);
             }
         }
     }
