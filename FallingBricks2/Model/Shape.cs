@@ -51,8 +51,6 @@ namespace FallingBricks2
             }
         }
 
-        public abstract Shape Clone();
-
         public void MoveDown()
         {
             Tiles[0].Position.Y = Tiles[0].Position.Y + 1;

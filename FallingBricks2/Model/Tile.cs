@@ -14,5 +14,6 @@ namespace FallingBricks2
         }
 
         public Point Position { get; set;}
+        public Colour Colour { get; set; }
     }    
 }

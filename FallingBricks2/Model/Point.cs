@@ -16,5 +16,6 @@ namespace FallingBricks2
 
         public int X { get; set; }
         public int Y { get; set; }
+        public int Index { get { return (Y * 10) + X; } }
     }
 }

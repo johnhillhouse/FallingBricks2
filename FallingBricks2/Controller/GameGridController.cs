@@ -16,13 +16,13 @@ namespace FallingBricks2.Controller
         private Shape _fallingShape;
         private DispatcherTimer GameTimer { get; set; }
         private ICollisionDetector _collisionDetector;
-        private List<Shape> _fallenShapes;
+        private Dictionary<int, Tile> _fallenTiles;
         
         public GameGridController(IGameGrid gameGrid)
         {
             _gameGrid = gameGrid;
             _collisionDetector = (ICollisionDetector)new CollisionDetector(_gameGrid.MaxYValue);
-            _fallenShapes = new List<Shape>();
+            _fallenTiles = new Dictionary<int, Tile>();
 
             GameTimer = new DispatcherTimer();
             GameTimer.Interval = TimeSpan.FromMilliseconds(800);
@@ -38,14 +38,22 @@ namespace FallingBricks2.Controller
 
         private void MoveDown()
         {
-            if (!_collisionDetector.CollisionDown(_fallingShape, _fallenShapes))
+            if (!_collisionDetector.CollisionDown(_fallingShape, _fallenTiles))
             {
                 _fallingShape.MoveDown();
             }
             else
             {
-                var clonedShape = _fallingShape.Clone();
-                _fallenShapes.Add(clonedShape);
+                foreach(var tile in _fallingShape.Tiles)
+                {
+                    if (_fallenTiles.ContainsKey(tile.Position.Index))
+                    {
+                        GameTimer.Stop();
+                        return;
+                    }
+
+                    _fallenTiles.Add(tile.Position.Index, tile);
+                }
                 PaintFallenShapes();
                 _fallingShape = ShapeFactory.GetRandomShape();
             }
@@ -53,9 +61,10 @@ namespace FallingBricks2.Controller
 
         private void PaintFallenShapes()
         {
-            foreach (var shape in _fallenShapes)
+            foreach (var entry in _fallenTiles)
             {
-                PaintShape(shape);
+                var tile = entry.Value;
+                _gameGrid.PaintTile(tile.Position, GetColour(tile.Colour));
             }
         }
         

@@ -9,7 +9,7 @@ namespace FallingBricks2.Controller
 {
     public interface ICollisionDetector
     {
-        bool CollisionDown(Shape shape, List<Shape> fallenShapes);
+        bool CollisionDown(Shape shape, Dictionary<int, Tile> fallenTiles);
     }
 
     public class CollisionDetector : ICollisionDetector
@@ -20,23 +20,20 @@ namespace FallingBricks2.Controller
             _maxYValue = maxYValue;
         }
 
-        public bool CollisionDown(Shape fallingShape, List<Shape> fallenShapes)
+        public bool CollisionDown(Shape fallingShape, Dictionary<int, Tile> fallenTiles)
         {
-            if (HitBottomOfGrid(fallingShape) || HitFallenShapes(fallingShape, fallenShapes))
+            if (HitBottomOfGrid(fallingShape) || HitFallenShapes(fallingShape, fallenTiles))
                 return true;
 
             return false;
         }
 
-        private bool HitFallenShapes(Shape shape, List<Shape> fallenShapes)
+        private bool HitFallenShapes(Shape fallingShape, Dictionary<int, Tile> fallenTiles)
         {
-            foreach (var fallenShape in fallenShapes)
+            foreach(var tile in fallingShape.Tiles)
             {
-                foreach (var tile in fallenShape.Tiles)
-                {
-                    if (shape.Tiles.Any(t => t.Position.Y + 1 == tile.Position.Y))
-                        return true;
-                }
+                if(fallenTiles.ContainsKey((new Point(tile.Position.X, tile.Position.Y + 1)).Index))
+                    return true;
             }
             
             return false;

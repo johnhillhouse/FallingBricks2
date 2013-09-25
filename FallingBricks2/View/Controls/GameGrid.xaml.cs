@@ -55,17 +55,12 @@ namespace FallingBricks2.View.Controls
 
         public void PaintTile(Point tilePosition, Color colour)
         {
-            ((Control)grid.Children[GetGridIndex(tilePosition)]).Background = new SolidColorBrush(colour);
+            ((Control)grid.Children[tilePosition.Index]).Background = new SolidColorBrush(colour);
         }
 
         public void ClearTile(Point tilePosition)
         {
-            ((Control)grid.Children[GetGridIndex(tilePosition)]).Background = new SolidColorBrush(Colors.Transparent);
-        }
-
-        private int GetGridIndex(Point position)
-        {
-            return (position.Y * 10) + position.X;
+            ((Control)grid.Children[tilePosition.Index]).Background = new SolidColorBrush(Colors.Transparent);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

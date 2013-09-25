@@ -18,13 +18,13 @@ namespace UnitTests
         [TestMethod]
         public void DetectNonCollisionBlankGrid()
         {
-            Assert.IsFalse(_detector.CollisionDown(new Line(new Point(1, 8)), new List<Shape>()));
+            Assert.IsFalse(_detector.CollisionDown(new Line(new Point(1, 8)), new Dictionary<int, Tile>()));
         }
 
         [TestMethod]
         public void DetectCollisionBlankGrid()
         {
-            Assert.IsTrue(_detector.CollisionDown(new Line(new Point(1, 9)), new List<Shape>()));
+            Assert.IsTrue(_detector.CollisionDown(new Line(new Point(1, 9)), new Dictionary<int, Tile>()));
         }
 
         [TestMethod]
@@ -32,9 +32,13 @@ namespace UnitTests
         {
             var line = new Line(new Point(1, 6));
             var fallenLine = new Line(new Point(1, 7));
-            var fallenShapes = new List<Shape> { fallenLine };
+            var fallenTiles = new Dictionary<int, Tile>();
+            foreach (var tile in fallenLine.Tiles)
+            {
+                fallenTiles.Add(tile.Position.Index, tile);
+            }
 
-            Assert.IsTrue(_detector.CollisionDown(line, fallenShapes));
+            Assert.IsTrue(_detector.CollisionDown(line, fallenTiles));
         }
 
         [TestMethod]
@@ -42,9 +46,13 @@ namespace UnitTests
         {
             var line = new Line(new Point(1, 3));
             var fallenLine = new Line(new Point(1, 7));
-            var fallenShapes = new List<Shape> { fallenLine };
+            var fallenTiles = new Dictionary<int, Tile>();
+            foreach (var tile in fallenLine.Tiles)
+            {
+                fallenTiles.Add(tile.Position.Index, tile);
+            }
 
-            Assert.IsFalse(_detector.CollisionDown(line, fallenShapes));
+            Assert.IsFalse(_detector.CollisionDown(line, fallenTiles));
         }
     }
 }
