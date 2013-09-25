@@ -9,22 +9,35 @@ namespace FallingBricks2.Controller
 {
     public interface ICollisionDetector
     {
-        bool CollisionDown(Shape shape, Dictionary<int, Tile> fallenTiles);
+        bool CollisionDown(Shape fallingShape, Dictionary<int, Tile> fallenTiles);
+        bool CollisionSide(Shape fallingShape, Dictionary<int, Tile> fallenTiles);
     }
 
     public class CollisionDetector : ICollisionDetector
     {
-        private int _maxYValue;
-        public CollisionDetector(int maxYValue)
-        {
-            _maxYValue = maxYValue;
-        }
-
         public bool CollisionDown(Shape fallingShape, Dictionary<int, Tile> fallenTiles)
         {
             if (HitBottomOfGrid(fallingShape) || HitFallenShapes(fallingShape, fallenTiles))
                 return true;
 
+            return false;
+        }
+
+        public bool CollisionSide(Shape fallingShape, Dictionary<int, Tile> fallenTiles)
+        {
+            if (HitSideOfGrid(fallingShape))
+                return true;
+
+            return false;
+        }
+
+        private bool HitSideOfGrid(Shape fallingShape)
+        {
+            foreach (var tile in fallingShape.Tiles)
+            {
+                if (tile.Position.X == GridDimensions.MinXValue || tile.Position.X == GridDimensions.MaxXValue)
+                    return true;
+            }
             return false;
         }
 
@@ -43,7 +56,7 @@ namespace FallingBricks2.Controller
         {
             foreach (var tile in shape.Tiles)
             {
-                if (tile.Position.Y >= _maxYValue - 1)
+                if (tile.Position.Y >= GridDimensions.MaxYValue - 1)
                     return true;
             }
             

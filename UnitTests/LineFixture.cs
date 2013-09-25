@@ -19,6 +19,30 @@ namespace FallingBricks2.UnitTests
         }
 
         [TestMethod]
+        public void TestMoveRight()
+        {
+            var line = new Line(new Point(2, 3));
+            line.MoveRight();
+
+            Assert.AreEqual(3, line.Tiles[0].Position.X);
+            Assert.AreEqual(4, line.Tiles[1].Position.X);
+            Assert.AreEqual(5, line.Tiles[2].Position.X);
+            Assert.AreEqual(6, line.Tiles[3].Position.X);
+        }
+
+        [TestMethod]
+        public void TestMoveLeft()
+        {
+            var line = new Line(new Point(2, 3));
+            line.MoveLeft();
+
+            Assert.AreEqual(1, line.Tiles[0].Position.X);
+            Assert.AreEqual(2, line.Tiles[1].Position.X);
+            Assert.AreEqual(3, line.Tiles[2].Position.X);
+            Assert.AreEqual(4, line.Tiles[3].Position.X);
+        }
+
+        [TestMethod]
         public void TestRotateClockWise()
         {
             var line = GetLine(2, 3);

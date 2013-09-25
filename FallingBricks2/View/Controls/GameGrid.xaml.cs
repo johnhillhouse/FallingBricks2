@@ -21,17 +21,24 @@ namespace FallingBricks2.View.Controls
     {
         void PaintTile(Point tilePosition, Color colour);
         void ClearTile(Point tilePosition);
-        int MaxYValue { get; }
     }
 
+    public static class GridDimensions
+    {
+        public static int MaxYValue;
+        public static int MinXValue;
+        public static int MaxXValue;
+    }
 
     public partial class GameGrid : UserControl, IGameGrid
     {
-        public int MaxYValue { get { return grid.RowDefinitions.Count(); } }
         public GameGrid()
         {
             InitializeComponent();
             PopulateGridWithBackgroundTiles();
+            GridDimensions.MaxXValue = this.grid.ColumnDefinitions.Count();
+            GridDimensions.MinXValue = 1;
+            GridDimensions.MaxYValue = this.grid.RowDefinitions.Count();
         }
 
         private void PopulateGridWithBackgroundTiles()

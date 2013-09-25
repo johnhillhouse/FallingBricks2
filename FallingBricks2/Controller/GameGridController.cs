@@ -21,7 +21,7 @@ namespace FallingBricks2.Controller
         public GameGridController(IGameGrid gameGrid)
         {
             _gameGrid = gameGrid;
-            _collisionDetector = (ICollisionDetector)new CollisionDetector(_gameGrid.MaxYValue);
+            _collisionDetector = (ICollisionDetector)new CollisionDetector();
             _fallenTiles = new Dictionary<int, Tile>();
 
             GameTimer = new DispatcherTimer();
@@ -33,6 +33,7 @@ namespace FallingBricks2.Controller
         {
             ClearShape(_fallingShape);
             MoveDown();
+            MoveRight();
             PaintShape(_fallingShape);
         }
 
@@ -54,12 +55,28 @@ namespace FallingBricks2.Controller
 
                     _fallenTiles.Add(tile.Position.Index, tile);
                 }
-                PaintFallenShapes();
+                PaintFallenTiles();
                 _fallingShape = ShapeFactory.GetRandomShape();
             }
         }
 
-        private void PaintFallenShapes()
+        private void MoveLeft()
+        {
+            if (!_collisionDetector.CollisionSide(_fallingShape, _fallenTiles))
+            {
+                _fallingShape.MoveLeft();
+            }
+        }
+
+        private void MoveRight()
+        {
+            if (!_collisionDetector.CollisionSide(_fallingShape, _fallenTiles))
+            {
+                _fallingShape.MoveRight();
+            }
+        }
+
+        private void PaintFallenTiles()
         {
             foreach (var entry in _fallenTiles)
             {
