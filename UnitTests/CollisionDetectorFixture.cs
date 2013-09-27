@@ -22,44 +22,56 @@ namespace UnitTests
         [TestMethod]
         public void DetectDownNonCollisionBlankGrid()
         {
-            Assert.IsFalse(_detector.CollisionDown(new Line(new Point(1, 8)), new Dictionary<int, Tile>()));
+            Assert.IsFalse(_detector.CollisionMovingDown(new Line(new Point(1, 8)), new Dictionary<int, Tile>()));
         }
 
         [TestMethod]
         public void DetectDownCollisionBlankGrid()
         {
-            Assert.IsTrue(_detector.CollisionDown(new Line(new Point(1, 9)), new Dictionary<int, Tile>()));
+            Assert.IsTrue(_detector.CollisionMovingDown(new Line(new Point(1, 9)), new Dictionary<int, Tile>()));
         }
 
         [TestMethod]
         public void DetectDownCollisionFallenShapes()
         {
             var line = new Line(new Point(1, 6));
-            Assert.IsTrue(_detector.CollisionDown(line, GetFallenTiles()));
+            Assert.IsTrue(_detector.CollisionMovingDown(line, GetFallenTiles(3,7)));
         }
 
         [TestMethod]
         public void DetectDownNonCollisionFallenShapes()
         {
             var line = new Line(new Point(1, 3));
-            Assert.IsFalse(_detector.CollisionDown(line, GetFallenTiles()));
+            Assert.IsFalse(_detector.CollisionMovingDown(line, GetFallenTiles(3,7)));
         }
 
         [TestMethod]
         public void DetectLeftCollisionBlankGrid()
         {
-            Assert.IsTrue(_detector.CollisionSide(new Line(new Point(1,9)), new Dictionary<int, Tile>()));
+            Assert.IsTrue(_detector.CollisionMovingLeft(new Line(new Point(1,9)), new Dictionary<int, Tile>()));
         }
 
         [TestMethod]
         public void DetectRightCollisionBlankGrid()
         {
-            Assert.IsTrue(_detector.CollisionSide(new Line(new Point(10, 9)), new Dictionary<int, Tile>()));
+            Assert.IsTrue(_detector.CollisionMovingRight(new Line(new Point(10, 9)), new Dictionary<int, Tile>()));
         }
 
-        private Dictionary<int, Tile> GetFallenTiles()
+        [TestMethod]
+        public void DetectLeftCollisionFallenShapes()
         {
-            var fallenLine = new Line(new Point(1, 7));
+            Assert.IsTrue(_detector.CollisionMovingLeft(new Line(new Point(7, 7)), GetFallenTiles(3,7)));
+        }
+
+        [TestMethod]
+        public void DetectRightCollisionFallenShapes()
+        {
+            Assert.IsTrue(_detector.CollisionMovingRight(new Line(new Point(3, 7)), GetFallenTiles(7,7)));
+        }
+
+        private Dictionary<int, Tile> GetFallenTiles(int x, int y)
+        {
+            var fallenLine = new Line(new Point(x, y));
             var fallenTiles = new Dictionary<int, Tile>();
             foreach (var tile in fallenLine.Tiles)
             {

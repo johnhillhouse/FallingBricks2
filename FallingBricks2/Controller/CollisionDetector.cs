@@ -9,39 +9,58 @@ namespace FallingBricks2.Controller
 {
     public interface ICollisionDetector
     {
-        bool CollisionDown(Shape fallingShape, Dictionary<int, Tile> fallenTiles);
-        bool CollisionSide(Shape fallingShape, Dictionary<int, Tile> fallenTiles);
+        bool CollisionMovingDown(Shape fallingShape, Dictionary<int, Tile> fallenTiles);
+        bool CollisionMovingLeft(Shape fallingShape, Dictionary<int, Tile> fallenTiles);
+        bool CollisionMovingRight(Shape fallingShape, Dictionary<int, Tile> fallenTiles);
     }
 
     public class CollisionDetector : ICollisionDetector
     {
-        public bool CollisionDown(Shape fallingShape, Dictionary<int, Tile> fallenTiles)
+        public bool CollisionMovingDown(Shape fallingShape, Dictionary<int, Tile> fallenTiles)
         {
-            if (HitBottomOfGrid(fallingShape) || HitFallenShapes(fallingShape, fallenTiles))
+            if (HitBottomOfGrid(fallingShape) || HitFallenShapesMovingDownwards(fallingShape, fallenTiles))
                 return true;
 
             return false;
         }
 
-        public bool CollisionSide(Shape fallingShape, Dictionary<int, Tile> fallenTiles)
+        public bool CollisionMovingLeft(Shape fallingShape, Dictionary<int, Tile> fallenTiles)
         {
-            if (HitSideOfGrid(fallingShape))
+            if (HitLeftSideOfGrid(fallingShape) || HitFallenShapesMovingLeft(fallingShape, fallenTiles))
                 return true;
 
             return false;
         }
 
-        private bool HitSideOfGrid(Shape fallingShape)
+        public bool CollisionMovingRight(Shape fallingShape, Dictionary<int, Tile> fallenTiles)
+        {
+            if (HitRightSideOfGrid(fallingShape) || HitFallenShapesMovingRight(fallingShape, fallenTiles))
+                return true;
+
+            return false;
+        }
+
+        private bool HitLeftSideOfGrid(Shape fallingShape)
         {
             foreach (var tile in fallingShape.Tiles)
             {
-                if (tile.Position.X == GridDimensions.MinXValue || tile.Position.X == GridDimensions.MaxXValue)
+                if (tile.Position.X == GridDimensions.MinXValue)
                     return true;
             }
             return false;
         }
 
-        private bool HitFallenShapes(Shape fallingShape, Dictionary<int, Tile> fallenTiles)
+        private bool HitRightSideOfGrid(Shape fallingShape)
+        {
+            foreach (var tile in fallingShape.Tiles)
+            {
+                if (tile.Position.X == GridDimensions.MaxXValue)
+                    return true;
+            }
+            return false;
+        }
+
+        private bool HitFallenShapesMovingDownwards(Shape fallingShape, Dictionary<int, Tile> fallenTiles)
         {
             foreach(var tile in fallingShape.Tiles)
             {
@@ -49,6 +68,28 @@ namespace FallingBricks2.Controller
                     return true;
             }
             
+            return false;
+        }
+
+        private bool HitFallenShapesMovingLeft(Shape fallingShape, Dictionary<int, Tile> fallenTiles)
+        {
+            foreach (var tile in fallingShape.Tiles)
+            {
+                if (fallenTiles.ContainsKey((new Point(tile.Position.X - 1, tile.Position.Y)).Index))
+                    return true;
+            }
+
+            return false;
+        }
+
+        private bool HitFallenShapesMovingRight(Shape fallingShape, Dictionary<int, Tile> fallenTiles)
+        {
+            foreach (var tile in fallingShape.Tiles)
+            {
+                if (fallenTiles.ContainsKey((new Point(tile.Position.X + 1, tile.Position.Y)).Index))
+                    return true;
+            }
+
             return false;
         }
         

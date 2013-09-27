@@ -46,23 +46,18 @@ namespace FallingBricks2.UnitTests
         public void TestRotateClockWise()
         {
             var line = GetLine(2, 3);
-
             AssertFacingEast(line);
 
             line.RotateClockWise();
-
             AssertFacingSouth(line);
             
             line.RotateClockWise();
-
             AssertFacingWest(line);
 
             line.RotateClockWise();
-
             AssertFacingNorth(line);
 
             line.RotateClockWise();
-
             AssertFacingEast(line);
         }
 
@@ -70,23 +65,18 @@ namespace FallingBricks2.UnitTests
         public void TestRotateAntiClockWise()
         {
             var line = GetLine(2, 3);
-
             AssertFacingEast(line);
 
             line.RotateAntiClockWise();
-
             AssertFacingNorth(line);
 
             line.RotateAntiClockWise();
-
             AssertFacingWest(line);
 
             line.RotateAntiClockWise();
-
             AssertFacingSouth(line);
 
             line.RotateAntiClockWise();
-
             AssertFacingEast(line);
         }
 

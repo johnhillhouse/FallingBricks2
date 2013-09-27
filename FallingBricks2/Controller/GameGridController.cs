@@ -33,13 +33,13 @@ namespace FallingBricks2.Controller
         {
             ClearShape(_fallingShape);
             MoveDown();
-            MoveRight();
+            MoveLeft();
             PaintShape(_fallingShape);
         }
 
         private void MoveDown()
         {
-            if (!_collisionDetector.CollisionDown(_fallingShape, _fallenTiles))
+            if (!_collisionDetector.CollisionMovingDown(_fallingShape, _fallenTiles))
             {
                 _fallingShape.MoveDown();
             }
@@ -62,7 +62,7 @@ namespace FallingBricks2.Controller
 
         private void MoveLeft()
         {
-            if (!_collisionDetector.CollisionSide(_fallingShape, _fallenTiles))
+            if (!_collisionDetector.CollisionMovingLeft(_fallingShape, _fallenTiles))
             {
                 _fallingShape.MoveLeft();
             }
@@ -70,7 +70,7 @@ namespace FallingBricks2.Controller
 
         private void MoveRight()
         {
-            if (!_collisionDetector.CollisionSide(_fallingShape, _fallenTiles))
+            if (!_collisionDetector.CollisionMovingRight(_fallingShape, _fallenTiles))
             {
                 _fallingShape.MoveRight();
             }
