@@ -2,6 +2,7 @@
 using FallingBricks2.Controller;
 using FallingBricks2.View.Controls;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 
 namespace UnitTests
@@ -20,6 +21,79 @@ namespace UnitTests
         }
 
         [TestMethod]
+        public void DetectCollisionRotatingClockwiseBlankGrid()
+        {
+            var line = new Line(new Point(5, 6));
+            line.RotateClockWise();
+            line.MoveRight();
+            line.MoveRight();
+            line.MoveRight();
+
+            Assert.IsTrue(_detector.CollisionRotatingClockwise(line, new Dictionary<int, Tile>()), "Collision detection with right side of grid failed");
+
+            line.MoveLeft();
+            line.MoveLeft();
+            line.MoveLeft();
+            line.MoveLeft();
+            line.MoveLeft();
+            line.MoveLeft();
+
+            Assert.IsTrue(_detector.CollisionRotatingClockwise(line, new Dictionary<int, Tile>()), "Collision detection with left side of grid failed");
+
+            line.MoveRight();
+            line.MoveRight();
+            line.RotateClockWise();
+            line.MoveDown();
+            line.MoveDown();
+            line.MoveDown();
+
+            Assert.IsTrue(_detector.CollisionRotatingClockwise(line, new Dictionary<int, Tile>()), "Collision detection with bottom of grid failed");
+        }
+
+        [TestMethod]
+        public void DetectCollisionRotatingAntiClockwiseBlankGrid()
+        {
+            var line = new Line(new Point(5, 6));
+            line.RotateClockWise();
+            line.MoveRight();
+            line.MoveRight();
+            line.MoveRight();
+
+            Assert.IsTrue(_detector.CollisionRotatingAntiClockwise(line, new Dictionary<int, Tile>()), "Collision detection with right side of grid failed");
+
+            line.MoveLeft();
+            line.MoveLeft();
+            line.MoveLeft();
+            line.MoveLeft();
+            line.MoveLeft();
+            line.MoveLeft();
+            line.MoveLeft();
+
+            Assert.IsTrue(_detector.CollisionRotatingAntiClockwise(line, new Dictionary<int, Tile>()), "Collision detection with left side of grid failed");
+
+            line.MoveRight();
+            line.MoveRight();
+            line.RotateClockWise();
+            line.MoveDown();
+            line.MoveDown();
+            line.MoveDown();
+
+            Assert.IsTrue(_detector.CollisionRotatingAntiClockwise(line, new Dictionary<int, Tile>()), "Collision detection with bottom of grid failed");
+        }
+
+        [TestMethod]
+        public void DetectCollisionRotatingClockwiseFallenTiles()
+        {
+            Assert.IsTrue(_detector.CollisionRotatingClockwise(new Line(new Point(5, 6)), GetFallenTiles(5, 7)));
+        }
+
+        [TestMethod]
+        public void DetectCollisionRotatingAntiClockwiseFallenTiles()
+        {
+            Assert.IsTrue(_detector.CollisionRotatingAntiClockwise(new Line(new Point(5, 6)), GetFallenTiles(5, 7)));
+        }
+
+        [TestMethod]
         public void DetectDownNonCollisionBlankGrid()
         {
             Assert.IsFalse(_detector.CollisionMovingDown(new Line(new Point(1, 8)), new Dictionary<int, Tile>()));
@@ -32,14 +106,14 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void DetectDownCollisionFallenShapes()
+        public void DetectDownCollisionFallenTiles()
         {
             var line = new Line(new Point(1, 6));
             Assert.IsTrue(_detector.CollisionMovingDown(line, GetFallenTiles(3,7)));
         }
 
         [TestMethod]
-        public void DetectDownNonCollisionFallenShapes()
+        public void DetectDownNonCollisionFallenTiles()
         {
             var line = new Line(new Point(1, 3));
             Assert.IsFalse(_detector.CollisionMovingDown(line, GetFallenTiles(3,7)));
@@ -58,13 +132,13 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void DetectLeftCollisionFallenShapes()
+        public void DetectLeftCollisionFallenTiles()
         {
             Assert.IsTrue(_detector.CollisionMovingLeft(new Line(new Point(7, 7)), GetFallenTiles(3,7)));
         }
 
         [TestMethod]
-        public void DetectRightCollisionFallenShapes()
+        public void DetectRightCollisionFallenTiles()
         {
             Assert.IsTrue(_detector.CollisionMovingRight(new Line(new Point(3, 7)), GetFallenTiles(7,7)));
         }

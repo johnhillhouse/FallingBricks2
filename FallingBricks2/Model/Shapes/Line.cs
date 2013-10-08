@@ -9,6 +9,8 @@ namespace FallingBricks2
 {
     public class Line : Shape
     {
+        private Point _pivotPoint { get { return Tiles[1].Position; } }
+        
         public Line(Point startingPoint)
         {
             BuildLine(startingPoint);
@@ -26,66 +28,71 @@ namespace FallingBricks2
             RotateEast();
         }
 
-        protected override void RotateNorth() 
-        {
-            base.RotateNorth();
-            var pivotPoint = Tiles[1].Position;
-
-            Tiles[0].Position.Y = pivotPoint.Y + 1;
-            Tiles[2].Position.Y = pivotPoint.Y - 1;
-            Tiles[3].Position.Y = pivotPoint.Y - 2;
-
-            SetPointXToPivotPointX(pivotPoint);
-        }
-        
         protected override void RotateEast() 
         {
             base.RotateEast();
-            var pivotPoint = Tiles[1].Position;
-
-            Tiles[0].Position.X = pivotPoint.X - 1;
-            Tiles[2].Position.X = pivotPoint.X + 1;
-            Tiles[3].Position.X = pivotPoint.X + 2;
-
-            SetPointYToPivotPointY(pivotPoint);
+            for(var i = 0; i <= 3; i++)
+                Tiles[i].Position = EastCoordinates()[i];
         }
 
         protected override void RotateSouth() 
         {
             base.RotateSouth();
-            var pivotPoint = Tiles[1].Position;
-
-            Tiles[0].Position.Y = pivotPoint.Y - 1;
-            Tiles[2].Position.Y = pivotPoint.Y + 1;
-            Tiles[3].Position.Y = pivotPoint.Y + 2;
-
-            SetPointXToPivotPointX(pivotPoint);
+            for (var i = 0; i <= 3; i++)
+                Tiles[i].Position = SouthCoordinates()[i];
         }
 
-        protected override void RotateWest() 
+        protected override void RotateWest()
         {
             base.RotateWest();
-            var pivotPoint = Tiles[1].Position;
-
-            Tiles[0].Position.X = pivotPoint.X + 1;
-            Tiles[2].Position.X = pivotPoint.X - 1;
-            Tiles[3].Position.X = pivotPoint.X - 2;
-
-            SetPointYToPivotPointY(pivotPoint);
+            for (var i = 0; i <= 3; i++)
+                Tiles[i].Position = WestCoordinates()[i];
         }
 
-        private void SetPointXToPivotPointX(Point pivotPoint)
+        protected override void RotateNorth()
         {
-            Tiles[0].Position.X = pivotPoint.X;
-            Tiles[2].Position.X = pivotPoint.X;
-            Tiles[3].Position.X = pivotPoint.X;
+            base.RotateNorth();
+            for (var i = 0; i <= 3; i++)
+                Tiles[i].Position = NorthCoordinates()[i];
         }
 
-        private void SetPointYToPivotPointY(Point pivotPoint)
+        protected override List<Point> SouthCoordinates()
         {
-            Tiles[0].Position.Y = pivotPoint.Y;
-            Tiles[2].Position.Y = pivotPoint.Y;
-            Tiles[3].Position.Y = pivotPoint.Y;
+            return new List<Point> { 
+                new Point(_pivotPoint.X, _pivotPoint.Y - 1),
+                _pivotPoint,
+                new Point(_pivotPoint.X, _pivotPoint.Y + 1),
+                new Point(_pivotPoint.X, _pivotPoint.Y + 2)
+            };
+        }
+
+        protected override List<Point> EastCoordinates()
+        {
+            return new List<Point> { 
+                new Point(_pivotPoint.X - 1, _pivotPoint.Y),
+                _pivotPoint,
+                new Point(_pivotPoint.X + 1, _pivotPoint.Y),
+                new Point(_pivotPoint.X + 2, _pivotPoint.Y)
+            };
+        }
+
+        protected override List<Point> WestCoordinates()
+        {
+            return new List<Point> { 
+                new Point(_pivotPoint.X + 1, _pivotPoint.Y),
+                _pivotPoint,
+                new Point(_pivotPoint.X - 1, _pivotPoint.Y),
+                new Point(_pivotPoint.X - 2, _pivotPoint.Y)
+            };
+        }
+        protected override List<Point> NorthCoordinates()
+        {
+            return new List<Point> { 
+                new Point(_pivotPoint.X, _pivotPoint.Y + 1),
+                _pivotPoint,
+                new Point(_pivotPoint.X, _pivotPoint.Y - 1),
+                new Point(_pivotPoint.X, _pivotPoint.Y - 2)
+            };
         }
     }
 }

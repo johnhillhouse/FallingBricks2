@@ -11,7 +11,7 @@ namespace FallingBricks2.Model
     {
         public static Shape GetRandomShape()
         {
-            var startingPosition = new Point(5, 6);
+            var startingPosition = new Point(9, 6);
             var random = new Random();
             switch (random.Next(1, 3))
             {

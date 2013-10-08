@@ -9,13 +9,23 @@ namespace FallingBricks2
 {
     public class Square : Shape
     {
-        public Square()
-        {
-        }
-        
         public Square(Point startingPoint)
         {
             BuildSquare(startingPoint);
+        }
+
+        protected override List<Point> SouthCoordinates() { return SquareCoordinates(); }
+        protected override List<Point> EastCoordinates() { return SquareCoordinates(); }
+        protected override List<Point> WestCoordinates() { return SquareCoordinates(); }
+        protected override List<Point> NorthCoordinates() { return SquareCoordinates(); }
+
+        private List<Point> SquareCoordinates()
+        {
+            var coordinates = new List<Point>();
+            foreach (var tile in Tiles)
+                coordinates.Add(tile.Position);
+
+            return coordinates;
         }
 
         private void BuildSquare(Point startingPoint)

@@ -33,10 +33,22 @@ namespace FallingBricks2.Controller
         {
             ClearShape(_fallingShape);
             MoveDown();
-            MoveLeft();
+            RotateClockWise();
             PaintShape(_fallingShape);
         }
 
+        private void RotateClockWise()
+        {
+            if (!_collisionDetector.CollisionRotatingClockwise(_fallingShape, _fallenTiles))
+                _fallingShape.RotateClockWise();
+        }
+
+        private void RotateAntiClockWise()
+        {
+            if (!_collisionDetector.CollisionRotatingAntiClockwise(_fallingShape, _fallenTiles))
+                _fallingShape.RotateAntiClockWise();
+        }
+        
         private void MoveDown()
         {
             if (!_collisionDetector.CollisionMovingDown(_fallingShape, _fallenTiles))

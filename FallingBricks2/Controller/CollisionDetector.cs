@@ -12,10 +12,22 @@ namespace FallingBricks2.Controller
         bool CollisionMovingDown(Shape fallingShape, Dictionary<int, Tile> fallenTiles);
         bool CollisionMovingLeft(Shape fallingShape, Dictionary<int, Tile> fallenTiles);
         bool CollisionMovingRight(Shape fallingShape, Dictionary<int, Tile> fallenTiles);
+        bool CollisionRotatingClockwise(Shape fallingShape, Dictionary<int, Tile> fallenTiles);
+        bool CollisionRotatingAntiClockwise(Shape fallingShape, Dictionary<int, Tile> fallenTiles);
     }
 
     public class CollisionDetector : ICollisionDetector
     {
+        public bool CollisionRotatingClockwise(Shape fallingShape, Dictionary<int, Tile> fallenTiles)
+        {
+            return CollisionRotating(fallenTiles, fallingShape.GetNextClockwiseRotationCoordinates());
+        }
+
+        public bool CollisionRotatingAntiClockwise(Shape fallingShape, Dictionary<int, Tile> fallenTiles)
+        {
+            return CollisionRotating(fallenTiles, fallingShape.GetNextAntiClockwiseRotationCoordinates());
+        }
+
         public bool CollisionMovingDown(Shape fallingShape, Dictionary<int, Tile> fallenTiles)
         {
             if (HitBottomOfGrid(fallingShape) || HitFallenShapesMovingDownwards(fallingShape, fallenTiles))
@@ -101,6 +113,26 @@ namespace FallingBricks2.Controller
                     return true;
             }
             
+            return false;
+        }
+
+        private static bool CollisionRotating(Dictionary<int, Tile> fallenTiles, List<Point> rotationPoints)
+        {
+            foreach (var point in rotationPoints)
+            {
+                if (fallenTiles.ContainsKey((point.Index)))
+                    return true;
+
+                if (point.X >= GridDimensions.MaxXValue)
+                    return true;
+
+                if (point.X <= GridDimensions.MinXValue)
+                    return true;
+
+                if (point.Y >= GridDimensions.MaxYValue)
+                    return true;
+            }
+
             return false;
         }
     }

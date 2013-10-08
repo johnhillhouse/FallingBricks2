@@ -7,11 +7,11 @@ using FallingBricks2.View.Controls;
 
 namespace FallingBricks2
 {
-    public class S: Shape
-    {
-        public S(): base()
-        {
-            Colour = Colour.Orange;
-        }
-    }
+    //public class S: Shape
+    //{
+    //    public S(): base()
+    //    {
+    //        Colour = Colour.Orange;
+    //    }
+    //}
 }
