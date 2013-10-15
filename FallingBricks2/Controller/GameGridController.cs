@@ -10,7 +10,15 @@ using System.Windows.Threading;
 
 namespace FallingBricks2.Controller
 {
-    public class GameGridController
+    public interface IGameGridController
+    {
+        void RotateClockwise();
+        void MoveRight();
+        void MoveLeft();
+        void StartGame();
+    }
+    
+    public class GameGridController: IGameGridController
     {
         private IGameGrid _gameGrid;
         private Shape _fallingShape;
@@ -33,17 +41,21 @@ namespace FallingBricks2.Controller
         {
             ClearShape(_fallingShape);
             MoveDown();
-            RotateClockWise();
             PaintShape(_fallingShape);
         }
 
-        private void RotateClockWise()
+        public void RotateClockwise()
         {
             if (!_collisionDetector.CollisionRotatingClockwise(_fallingShape, _fallenTiles))
+            {
+
+                ClearShape(_fallingShape);
                 _fallingShape.RotateClockWise();
+                PaintShape(_fallingShape);
+            }
         }
 
-        private void RotateAntiClockWise()
+        private void RotateAntiClockwise()
         {
             if (!_collisionDetector.CollisionRotatingAntiClockwise(_fallingShape, _fallenTiles))
                 _fallingShape.RotateAntiClockWise();
@@ -72,19 +84,23 @@ namespace FallingBricks2.Controller
             }
         }
 
-        private void MoveLeft()
+        public void MoveLeft()
         {
             if (!_collisionDetector.CollisionMovingLeft(_fallingShape, _fallenTiles))
             {
+                ClearShape(_fallingShape);
                 _fallingShape.MoveLeft();
+                PaintShape(_fallingShape);
             }
         }
 
-        private void MoveRight()
+        public void MoveRight()
         {
             if (!_collisionDetector.CollisionMovingRight(_fallingShape, _fallenTiles))
             {
+                ClearShape(_fallingShape);
                 _fallingShape.MoveRight();
+                PaintShape(_fallingShape);
             }
         }
 

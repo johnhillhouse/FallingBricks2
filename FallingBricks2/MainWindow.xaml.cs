@@ -25,6 +25,21 @@ namespace FallingBricks2
         public MainWindow()
         {
             InitializeComponent();
+            this.KeyDown += new KeyEventHandler(OnButtonKeyDown);
+        }
+
+        private void OnButtonKeyDown(object sender, KeyEventArgs e)
+        {
+
+            switch (e.Key)
+            {
+                case Key.Right: gameView.MoveRight();
+                    break;
+                case Key.Left: gameView.MoveLeft();
+                    break;
+                case Key.Up: gameView.RotateClockwise();
+                    break;
+            }
         }
     }
 }

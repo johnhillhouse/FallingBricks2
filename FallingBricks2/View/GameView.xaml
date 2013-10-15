@@ -9,6 +9,6 @@
       d:DesignHeight="300" d:DesignWidth="300">
 
     <Grid>
-        <controls:GameGrid />  
+        <controls:GameGrid x:Name="gameGrid"/>  
     </Grid>
 </model:OverlayUserControl>

@@ -32,9 +32,11 @@ namespace FallingBricks2.View.Controls
 
     public partial class GameGrid : UserControl, IGameGrid
     {
+        private IGameGridController _controller;
         public GameGrid()
         {
             InitializeComponent();
+            _controller = (IGameGridController)new GameGridController((IGameGrid)this);
             PopulateGridWithBackgroundTiles();
             GridDimensions.MaxXValue = this.grid.ColumnDefinitions.Count();
             GridDimensions.MinXValue = 1;
@@ -70,10 +72,24 @@ namespace FallingBricks2.View.Controls
             ((Control)grid.Children[tilePosition.Index]).Background = new SolidColorBrush(Colors.Transparent);
         }
 
+        public void MoveRight()
+        {
+            _controller.MoveRight();
+        }
+
+        public void MoveLeft()
+        {
+            _controller.MoveLeft();
+        }
+
+        public void RotateClockwise()
+        {
+            _controller.RotateClockwise();
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var controller = new GameGridController((IGameGrid)this);
-            controller.StartGame();
+            _controller.StartGame();
         }
     }
 }

@@ -25,5 +25,20 @@ namespace FallingBricks2.View
         {
             InitializeComponent();
         }
+
+        public void MoveRight()
+        {
+            gameGrid.MoveRight();
+        }
+
+        public void MoveLeft()
+        {
+            gameGrid.MoveLeft();
+        }
+
+        public void RotateClockwise()
+        {
+            gameGrid.RotateClockwise();
+        }        
     }
 }
