@@ -45,12 +45,6 @@ namespace FallingBricks2.Controller
             MoveDown();
         }
 
-        //private void RotateAntiClockwise()
-        //{
-        //    if (!_collisionDetector.CollisionRotatingAntiClockwise(_fallingShape, _fallenTiles))
-        //        _fallingShape.RotateAntiClockWise();
-        //}
-        
         private void MoveDown()
         {
             if(!MoveIfPossible(() => _fallingShape.MoveDown(), _collisionDetector.CollisionMovingDown))

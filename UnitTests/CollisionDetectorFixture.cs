@@ -51,46 +51,9 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void DetectCollisionRotatingAntiClockwiseBlankGrid()
-        {
-            var line = new Line(new Point(5, 6));
-            line.RotateClockWise();
-            line.MoveRight();
-            line.MoveRight();
-            line.MoveRight();
-
-            Assert.IsTrue(_detector.CollisionRotatingAntiClockwise(line, new Dictionary<int, Tile>()), "Collision detection with right side of grid failed");
-
-            line.MoveLeft();
-            line.MoveLeft();
-            line.MoveLeft();
-            line.MoveLeft();
-            line.MoveLeft();
-            line.MoveLeft();
-            line.MoveLeft();
-
-            Assert.IsTrue(_detector.CollisionRotatingAntiClockwise(line, new Dictionary<int, Tile>()), "Collision detection with left side of grid failed");
-
-            line.MoveRight();
-            line.MoveRight();
-            line.RotateClockWise();
-            line.MoveDown();
-            line.MoveDown();
-            line.MoveDown();
-
-            Assert.IsTrue(_detector.CollisionRotatingAntiClockwise(line, new Dictionary<int, Tile>()), "Collision detection with bottom of grid failed");
-        }
-
-        [TestMethod]
         public void DetectCollisionRotatingClockwiseFallenTiles()
         {
             Assert.IsTrue(_detector.CollisionRotatingClockwise(new Line(new Point(5, 6)), GetFallenTiles(5, 7)));
-        }
-
-        [TestMethod]
-        public void DetectCollisionRotatingAntiClockwiseFallenTiles()
-        {
-            Assert.IsTrue(_detector.CollisionRotatingAntiClockwise(new Line(new Point(5, 6)), GetFallenTiles(5, 7)));
         }
 
         [TestMethod]

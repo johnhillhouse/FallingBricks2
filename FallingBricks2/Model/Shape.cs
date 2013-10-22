@@ -21,9 +21,6 @@ namespace FallingBricks2
         protected virtual void RotateSouth() { RotationState = RotationState.South; }
         protected virtual void RotateWest() { RotationState = RotationState.West; }
 
-        //public abstract List<Point> GetNextClockwiseRotationCoordinates();
-        //public abstract List<Point> GetNextAntiClockwiseRotationCoordinates();
-
         protected abstract List<Point> EastCoordinates();
         protected abstract List<Point> SouthCoordinates();
         protected abstract List<Point> WestCoordinates();
@@ -41,18 +38,6 @@ namespace FallingBricks2
             throw new Exception("No such rotation state exists");
         }
 
-        public List<Point> GetNextAntiClockwiseRotationCoordinates()
-        {
-            switch (RotationState)
-            {
-                case RotationState.North: return WestCoordinates();
-                case RotationState.West: return SouthCoordinates();
-                case RotationState.South: return EastCoordinates();
-                case RotationState.East: return NorthCoordinates();
-            }
-            throw new Exception("No such rotation state exists");
-        }
-
         public virtual void RotateClockWise() 
         {
             switch (RotationState)
@@ -64,21 +49,6 @@ namespace FallingBricks2
                 case RotationState.South: RotateWest(); 
                     break;
                 case RotationState.West: RotateNorth(); 
-                    break;
-            }
-        }
-
-        public virtual void RotateAntiClockWise()
-        {
-            switch (RotationState)
-            {
-                case RotationState.North: RotateWest();
-                    break;
-                case RotationState.West: RotateSouth();
-                    break;
-                case RotationState.South: RotateEast();
-                    break;
-                case RotationState.East: RotateNorth();
                     break;
             }
         }

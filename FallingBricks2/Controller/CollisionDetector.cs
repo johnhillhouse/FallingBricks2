@@ -13,7 +13,6 @@ namespace FallingBricks2.Controller
         bool CollisionMovingLeft(Shape fallingShape, Dictionary<int, Tile> fallenTiles);
         bool CollisionMovingRight(Shape fallingShape, Dictionary<int, Tile> fallenTiles);
         bool CollisionRotatingClockwise(Shape fallingShape, Dictionary<int, Tile> fallenTiles);
-        bool CollisionRotatingAntiClockwise(Shape fallingShape, Dictionary<int, Tile> fallenTiles);
     }
 
     public class CollisionDetector : ICollisionDetector
@@ -21,11 +20,6 @@ namespace FallingBricks2.Controller
         public bool CollisionRotatingClockwise(Shape fallingShape, Dictionary<int, Tile> fallenTiles)
         {
             return CollisionRotating(fallenTiles, fallingShape.GetNextClockwiseRotationCoordinates());
-        }
-
-        public bool CollisionRotatingAntiClockwise(Shape fallingShape, Dictionary<int, Tile> fallenTiles)
-        {
-            return CollisionRotating(fallenTiles, fallingShape.GetNextAntiClockwiseRotationCoordinates());
         }
 
         public bool CollisionMovingDown(Shape fallingShape, Dictionary<int, Tile> fallenTiles)

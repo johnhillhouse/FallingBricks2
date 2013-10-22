@@ -61,25 +61,6 @@ namespace FallingBricks2.UnitTests
             AssertFacingEast(line);
         }
 
-        [TestMethod]
-        public void TestRotateAntiClockWise()
-        {
-            var line = GetLine(2, 3);
-            AssertFacingEast(line);
-
-            line.RotateAntiClockWise();
-            AssertFacingNorth(line);
-
-            line.RotateAntiClockWise();
-            AssertFacingWest(line);
-
-            line.RotateAntiClockWise();
-            AssertFacingSouth(line);
-
-            line.RotateAntiClockWise();
-            AssertFacingEast(line);
-        }
-
         private void AssertFacingNorth(Line line)
         {
             Assert.AreEqual(3, line.Tiles[0].Position.X);
