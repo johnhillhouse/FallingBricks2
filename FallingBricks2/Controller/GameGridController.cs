@@ -16,6 +16,8 @@ namespace FallingBricks2.Controller
         void MoveRight();
         void MoveLeft();
         void StartGame();
+        void SpeedDescent();
+        void SlowDescent();
     }
     
     public class GameGridController: IGameGridController
@@ -24,13 +26,14 @@ namespace FallingBricks2.Controller
         private Shape _fallingShape;
         private DispatcherTimer GameTimer { get; set; }
         private ICollisionDetector _collisionDetector;
-        private Dictionary<int, Tile> _fallenTiles;
+        private IFallenTiles _fallenTiles;
         
         public GameGridController(IGameGrid gameGrid)
         {
             _gameGrid = gameGrid;
             _collisionDetector = (ICollisionDetector)new CollisionDetector();
-            _fallenTiles = new Dictionary<int, Tile>();
+            _fallenTiles = (IFallenTiles)new FallenTiles();
+            
 
             GameTimer = new DispatcherTimer();
             GameTimer.Interval = TimeSpan.FromMilliseconds(800);
@@ -39,77 +42,91 @@ namespace FallingBricks2.Controller
 
         private void TetrisTick(object sender, EventArgs e)
         {
-            ClearShape(_fallingShape);
             MoveDown();
-            PaintShape(_fallingShape);
         }
 
-        public void RotateClockwise()
-        {
-            if (!_collisionDetector.CollisionRotatingClockwise(_fallingShape, _fallenTiles))
-            {
-
-                ClearShape(_fallingShape);
-                _fallingShape.RotateClockWise();
-                PaintShape(_fallingShape);
-            }
-        }
-
-        private void RotateAntiClockwise()
-        {
-            if (!_collisionDetector.CollisionRotatingAntiClockwise(_fallingShape, _fallenTiles))
-                _fallingShape.RotateAntiClockWise();
-        }
+        //private void RotateAntiClockwise()
+        //{
+        //    if (!_collisionDetector.CollisionRotatingAntiClockwise(_fallingShape, _fallenTiles))
+        //        _fallingShape.RotateAntiClockWise();
+        //}
         
         private void MoveDown()
         {
-            if (!_collisionDetector.CollisionMovingDown(_fallingShape, _fallenTiles))
-            {
-                _fallingShape.MoveDown();
-            }
-            else
+            if(!MoveIfPossible(() => _fallingShape.MoveDown(), _collisionDetector.CollisionMovingDown))
             {
                 foreach(var tile in _fallingShape.Tiles)
                 {
-                    if (_fallenTiles.ContainsKey(tile.Position.Index))
+                    if (_fallenTiles.Has(tile))
                     {
                         GameTimer.Stop();
                         return;
                     }
 
-                    _fallenTiles.Add(tile.Position.Index, tile);
+                    _fallenTiles.Add(tile);
                 }
+
+                ClearFallenTiles();
+                _fallenTiles.RemoveCompletedRowIfRequired(_fallingShape, GridDimensions.MaxXValue);
                 PaintFallenTiles();
                 _fallingShape = ShapeFactory.GetRandomShape();
             }
         }
 
+        public void SpeedDescent()
+        {
+            GameTimer.Interval = TimeSpan.FromMilliseconds(400);
+            MoveDown();
+        }
+
+        public void SlowDescent()
+        {
+            GameTimer.Interval = TimeSpan.FromMilliseconds(800);
+            MoveDown();
+        }
+
+        public void RotateClockwise()
+        {
+            MoveIfPossible(() => _fallingShape.RotateClockWise(), _collisionDetector.CollisionRotatingClockwise);
+        }
+
         public void MoveLeft()
         {
-            if (!_collisionDetector.CollisionMovingLeft(_fallingShape, _fallenTiles))
-            {
-                ClearShape(_fallingShape);
-                _fallingShape.MoveLeft();
-                PaintShape(_fallingShape);
-            }
+            MoveIfPossible(() => _fallingShape.MoveLeft(), _collisionDetector.CollisionMovingLeft);
         }
 
         public void MoveRight()
         {
-            if (!_collisionDetector.CollisionMovingRight(_fallingShape, _fallenTiles))
+            MoveIfPossible(() => _fallingShape.MoveRight(), _collisionDetector.CollisionMovingRight);
+        }
+
+        public bool MoveIfPossible(Action moveShape, Func<Shape, Dictionary<int,Tile>, bool> collisionDetected)
+        {
+            if (!collisionDetected(_fallingShape, _fallenTiles.Tiles))
             {
                 ClearShape(_fallingShape);
-                _fallingShape.MoveRight();
+                moveShape();
                 PaintShape(_fallingShape);
+                return true;
             }
+            return false;
         }
 
         private void PaintFallenTiles()
         {
-            foreach (var entry in _fallenTiles)
+            foreach (var entry in _fallenTiles.Tiles)
             {
                 var tile = entry.Value;
                 _gameGrid.PaintTile(tile.Position, GetColour(tile.Colour));
+            }
+        }
+
+        private void ClearFallenTiles()
+        {
+            foreach (var entry in _fallenTiles.Tiles)
+            {
+                var tile = entry.Value;
+                _gameGrid.ClearTile(tile.Position);
             }
         }
         

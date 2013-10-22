@@ -39,6 +39,16 @@ namespace FallingBricks2.View
         public void RotateClockwise()
         {
             gameGrid.RotateClockwise();
-        }        
+        }
+
+        public void SpeedDescent()
+        {
+            gameGrid.SpeedDescent();
+        }
+
+        public void SlowDescent()
+        {
+            gameGrid.SlowDescent();
+        }
     }
 }

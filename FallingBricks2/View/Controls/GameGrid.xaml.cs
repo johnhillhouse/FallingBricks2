@@ -25,6 +25,7 @@ namespace FallingBricks2.View.Controls
 
     public static class GridDimensions
     {
+        public static int MinYValue;
         public static int MaxYValue;
         public static int MinXValue;
         public static int MaxXValue;
@@ -38,6 +39,7 @@ namespace FallingBricks2.View.Controls
             InitializeComponent();
             _controller = (IGameGridController)new GameGridController((IGameGrid)this);
             PopulateGridWithBackgroundTiles();
+            GridDimensions.MinYValue = 1;
             GridDimensions.MaxXValue = this.grid.ColumnDefinitions.Count();
             GridDimensions.MinXValue = 1;
             GridDimensions.MaxYValue = this.grid.RowDefinitions.Count();
@@ -85,6 +87,16 @@ namespace FallingBricks2.View.Controls
         public void RotateClockwise()
         {
             _controller.RotateClockwise();
+        }
+
+        public void SpeedDescent()
+        {
+            _controller.SpeedDescent();
+        }
+
+        public void SlowDescent()
+        {
+            _controller.SlowDescent();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
