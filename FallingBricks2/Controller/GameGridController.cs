@@ -28,14 +28,14 @@ namespace FallingBricks2.Controller
         private ICollisionDetector _collisionDetector;
         private IFallenTiles _fallenTiles;
         private GameTimer _gameTimer;
+        private int _score;
         
         public GameGridController(IGameGrid gameGrid)
         {
             _gameGrid = gameGrid;
             _collisionDetector = (ICollisionDetector)new CollisionDetector();
             _fallenTiles = (IFallenTiles)new FallenTiles();
-
-
+            _score = 0;
             _gameTimer = new GameTimer();
             _gameTimer.Tick += new EventHandler(TetrisTick);
         }
@@ -54,6 +54,7 @@ namespace FallingBricks2.Controller
                     if (_fallenTiles.Has(tile))
                     {
                         _gameTimer.Stop();
+                        _gameGrid.AlertUser("Game Over.  Score: " + _score);
                         return;
                     }
 
@@ -61,7 +62,9 @@ namespace FallingBricks2.Controller
                 }
 
                 ClearFallenTiles();
-                _fallenTiles.RemoveCompletedRowIfRequired(_fallingShape, GridDimensions.MaxXValue);
+                var numberOfRowsRemoved = 0;
+                _fallenTiles.RemoveCompletedRowIfRequired(_fallingShape, GridDimensions.MaxXValue, out numberOfRowsRemoved);
+                _score += numberOfRowsRemoved * 50;
                 PaintFallenTiles();
                 _fallingShape = ShapeFactory.GetRandomShape();
             }

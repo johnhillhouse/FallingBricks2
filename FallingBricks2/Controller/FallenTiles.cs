@@ -11,7 +11,7 @@ namespace FallingBricks2.Controller
         Dictionary<int, Tile> Tiles { get; }
         void Add(Tile tile);
         bool Has(Tile tile);
-        void RemoveCompletedRowIfRequired(Shape fallingShape, int maxNumberInRow);
+        void RemoveCompletedRowIfRequired(Shape fallingShape, int maxNumberInRow, out int numberOfRowsRemoved);
     }
 
     public class FallenTiles : IFallenTiles
@@ -33,11 +33,12 @@ namespace FallingBricks2.Controller
             return _tiles.ContainsKey(tile.Position.Index);
         }
 
-        public void RemoveCompletedRowIfRequired(Shape fallingShape, int maxNumberInRow)
+        public void RemoveCompletedRowIfRequired(Shape fallingShape, int maxNumberInRow, out int numberOfRowsRemoved)
         {
             var rowsToRemove = GetRowsToRemove(fallingShape, maxNumberInRow);
             RemoveRows(rowsToRemove);            
             ShiftTilesDown(rowsToRemove);
+            numberOfRowsRemoved = rowsToRemove.Count;
         }
 
         private void ShiftTilesDown(Dictionary<int, IEnumerable<int>> rowsToRemove)

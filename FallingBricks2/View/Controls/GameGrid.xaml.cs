@@ -21,6 +21,7 @@ namespace FallingBricks2.View.Controls
     {
         void PaintTile(Point tilePosition, Color colour);
         void ClearTile(Point tilePosition);
+        void AlertUser(string alert);
     }
 
     public static class GridDimensions
@@ -97,6 +98,11 @@ namespace FallingBricks2.View.Controls
         public void SlowDescent()
         {
             _controller.SlowDescent();
+        }
+
+        public void AlertUser(string alert)
+        {
+            MessageBox.Show(alert);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
