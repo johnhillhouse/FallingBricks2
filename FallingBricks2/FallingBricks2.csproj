@@ -65,6 +65,7 @@
     <Compile Include="Controller\CollisionDetector.cs" />
     <Compile Include="Controller\FallenTiles.cs" />
     <Compile Include="Controller\GameGridController.cs" />
+    <Compile Include="Controller\GameTimer.cs" />
     <Compile Include="View\Controls\GameGrid.xaml.cs">
       <DependentUpon>GameGrid.xaml</DependentUpon>
     </Compile>

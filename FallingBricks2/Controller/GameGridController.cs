@@ -27,17 +27,17 @@ namespace FallingBricks2.Controller
         private DispatcherTimer GameTimer { get; set; }
         private ICollisionDetector _collisionDetector;
         private IFallenTiles _fallenTiles;
+        private GameTimer _gameTimer;
         
         public GameGridController(IGameGrid gameGrid)
         {
             _gameGrid = gameGrid;
             _collisionDetector = (ICollisionDetector)new CollisionDetector();
             _fallenTiles = (IFallenTiles)new FallenTiles();
-            
 
-            GameTimer = new DispatcherTimer();
-            GameTimer.Interval = TimeSpan.FromMilliseconds(800);
-            GameTimer.Tick += new EventHandler(TetrisTick);
+
+            _gameTimer = new GameTimer();
+            _gameTimer.Tick += new EventHandler(TetrisTick);
         }
 
         private void TetrisTick(object sender, EventArgs e)
@@ -53,7 +53,7 @@ namespace FallingBricks2.Controller
                 {
                     if (_fallenTiles.Has(tile))
                     {
-                        GameTimer.Stop();
+                        _gameTimer.Stop();
                         return;
                     }
 
@@ -69,13 +69,13 @@ namespace FallingBricks2.Controller
 
         public void SpeedDescent()
         {
-            GameTimer.Interval = TimeSpan.FromMilliseconds(400);
+            _gameTimer.SpeedUp();
             MoveDown();
         }
 
         public void SlowDescent()
         {
-            GameTimer.Interval = TimeSpan.FromMilliseconds(800);
+            _gameTimer.SlowDown();
             MoveDown();
         }
 
@@ -143,7 +143,7 @@ namespace FallingBricks2.Controller
         public void StartGame()
         {
             _fallingShape = ShapeFactory.GetRandomShape();
-            GameTimer.Start();
+            _gameTimer.Start();
         }
 
         private Color GetColour(Colour colour)
