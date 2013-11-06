@@ -61,9 +61,12 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CollisionDetectorFixture.cs" />
+    <Compile Include="ShapeTFixture.cs" />
+    <Compile Include="ShapeLFixture.cs" />
+    <Compile Include="ShapeJFixture.cs" />
     <Compile Include="FallenTilesFixture.cs" />
-    <Compile Include="SquareFixture.cs" />
-    <Compile Include="LineFixture.cs" />
+    <Compile Include="ShapeOFixture.cs" />
+    <Compile Include="ShapeIFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

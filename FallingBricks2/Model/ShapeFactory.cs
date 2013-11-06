@@ -13,11 +13,14 @@ namespace FallingBricks2.Model
         {
             var startingPosition = new Point(5, 6);
             var random = new Random();
-            switch (random.Next(1, 3))
+            switch (random.Next(1, 6))
             {
-                case 1: return new Square(startingPosition);
-                case 2: return new Line(startingPosition);
-                default: return new Square(startingPosition);
+                case 1: return new ShapeO(startingPosition);
+                case 2: return new ShapeI(startingPosition);
+                case 3: return new ShapeJ(startingPosition);
+                case 4: return new ShapeL(startingPosition);
+                case 5: return new ShapeT(startingPosition);
+                default: throw new Exception("You really shouldn't get this exception!");
             }
         }
     }

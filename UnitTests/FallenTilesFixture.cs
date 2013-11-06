@@ -11,20 +11,22 @@ namespace UnitTests
         [TestMethod]
         public void RemoveCompletedRowIfRequired()
         {
-            var line = new Line(new Point(5, 1));
+            var line = new ShapeI(new Point(5, 1));
             var fallenTiles = new FallenTiles();
 
             foreach (var tile in line.Tiles)
                 fallenTiles.Add(tile);
-            foreach (var tile in new Line(new Point(1, 2)).Tiles)
+            foreach (var tile in new ShapeI(new Point(1, 2)).Tiles)
                 fallenTiles.Add(tile);
-            foreach (var tile in new Line(new Point(1, 1)).Tiles)
+            foreach (var tile in new ShapeI(new Point(1, 1)).Tiles)
                 fallenTiles.Add(tile);
 
-            fallenTiles.RemoveCompletedRowIfRequired(line, 8);
+            int numberOfRowsRemoved;
+            fallenTiles.RemoveCompletedRowIfRequired(line, 8, out numberOfRowsRemoved);
 
-            // Assert 8 tiles remain i.e. 4 tiles have been removed (a row)
+            // Assert 4 tiles remain i.e. 4 tiles have been removed (a row)
             Assert.AreEqual(4, fallenTiles.Tiles.Count);
+            Assert.AreEqual(1, numberOfRowsRemoved);
             
             // Make sure the remaining tiles have shifted down
             Assert.IsTrue(fallenTiles.Tiles.ContainsKey(21));

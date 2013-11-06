@@ -66,19 +66,21 @@
     <Compile Include="Controller\FallenTiles.cs" />
     <Compile Include="Controller\GameGridController.cs" />
     <Compile Include="Controller\GameTimer.cs" />
+    <Compile Include="Model\Shapes\ShapeZ.cs" />
+    <Compile Include="Model\Shapes\ShapeJ.cs" />
     <Compile Include="View\Controls\GameGrid.xaml.cs">
       <DependentUpon>GameGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Colour.cs" />
-    <Compile Include="Model\Shapes\L.cs" />
-    <Compile Include="Model\Shapes\Line.cs" />
+    <Compile Include="Model\Shapes\ShapeL.cs" />
+    <Compile Include="Model\Shapes\ShapeI.cs" />
     <Compile Include="Model\Point.cs" />
-    <Compile Include="Model\Shapes\S.cs" />
+    <Compile Include="Model\Shapes\ShapeS.cs" />
     <Compile Include="Model\Shape.cs" />
     <Compile Include="Model\UI\OverlayUserControl.cs" />
     <Compile Include="Model\ShapeFactory.cs" />
-    <Compile Include="Model\Shapes\Square.cs" />
-    <Compile Include="Model\Shapes\T.cs" />
+    <Compile Include="Model\Shapes\ShapeO.cs" />
+    <Compile Include="Model\Shapes\ShapeT.cs" />
     <Compile Include="Model\Tile.cs" />
     <Page Include="View\Controls\GameGrid.xaml">
       <SubType>Designer</SubType>

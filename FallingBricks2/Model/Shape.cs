@@ -42,13 +42,13 @@ namespace FallingBricks2
         {
             switch (RotationState)
             {
-                case RotationState.North: RotateEast(); 
+                case RotationState.North: RotateEast();
                     break;
-                case RotationState.East: RotateSouth(); 
+                case RotationState.East: RotateSouth();
                     break;
-                case RotationState.South: RotateWest(); 
+                case RotationState.South: RotateWest();
                     break;
-                case RotationState.West: RotateNorth(); 
+                case RotationState.West: RotateNorth();
                     break;
             }
         }

@@ -7,11 +7,11 @@ using FallingBricks2.View.Controls;
 
 namespace FallingBricks2
 {
-    public class Square : Shape
+    public class ShapeO : Shape
     {
-        public Square(Point startingPoint)
+        public ShapeO(Point startingPoint)
         {
-            BuildSquare(startingPoint);
+            BuildShape(startingPoint);
         }
 
         protected override List<Point> SouthCoordinates() { return SquareCoordinates(); }
@@ -28,7 +28,7 @@ namespace FallingBricks2
             return coordinates;
         }
 
-        private void BuildSquare(Point startingPoint)
+        private void BuildShape(Point startingPoint)
         {
             Colour = Colour.Red;
 
