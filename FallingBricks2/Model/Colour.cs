@@ -12,6 +12,9 @@ namespace FallingBricks2
         Blue,
         Yellow,
         Orange,
-        Green
+        Green,
+        Gray,
+        Purple,
+        Brown
     }
 }

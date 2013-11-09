@@ -157,7 +157,9 @@ namespace FallingBricks2.Controller
                 case Colour.Green: return Colors.Green;
                 case Colour.Orange: return Colors.Orange;
                 case Colour.Red: return Colors.Red;
-                case Colour.Yellow: return Colors.Yellow;
+                case Colour.Gray: return Colors.DarkGray;
+                case Colour.Purple: return Colors.Purple;
+                case Colour.Brown: return Colors.Brown;
             }
 
             return Colors.Blue;
