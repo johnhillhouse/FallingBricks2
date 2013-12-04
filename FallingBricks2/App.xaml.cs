@@ -31,9 +31,9 @@ namespace FallingBricks2
         {
             _container = new WindsorContainer();
             _container.Register(Component.For<MainWindow>());
-            _container.Register(Component.For<GameGridController>());
-            _container.Register(Component.For<IGameGrid>().ImplementedBy<GameGrid>());
-            _container.Register(Component.For<ICollisionDetector>().ImplementedBy<CollisionDetector>());
+            //_container.Register(Component.For<GameGridController>());
+            //_container.Register(Component.For<IGameGrid>().ImplementedBy<GameGrid>());
+            //_container.Register(Component.For<ICollisionDetector>().ImplementedBy<CollisionDetector>());
 
             var mainWindow = _container.Resolve<MainWindow>();
             mainWindow.Show();

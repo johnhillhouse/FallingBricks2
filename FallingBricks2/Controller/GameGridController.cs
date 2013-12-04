@@ -63,11 +63,18 @@ namespace FallingBricks2.Controller
 
                 ClearFallenTiles();
                 var numberOfRowsRemoved = 0;
-                _fallenTiles.RemoveCompletedRowIfRequired(_fallingShape, GridDimensions.MaxXValue, out numberOfRowsRemoved);
-                _score += numberOfRowsRemoved * 50;
+                _fallenTiles.RemoveCompletedRowIfRequired(_fallingShape, GridDimensions.NumberXColumns, out numberOfRowsRemoved);
+                ChangeScore(numberOfRowsRemoved);
                 PaintFallenTiles();
                 _fallingShape = ShapeFactory.GetRandomShape();
+                //_gameTimer.IncreaseDifficulty();
             }
+        }
+
+        private void ChangeScore(int numberOfRowsRemoved)
+        {
+            _score += numberOfRowsRemoved * 50;
+            _gameGrid.ChangeScore(_score);
         }
 
         public void SpeedDescent()

@@ -22,6 +22,7 @@ namespace FallingBricks2.View.Controls
         void PaintTile(Point tilePosition, Color colour);
         void ClearTile(Point tilePosition);
         void AlertUser(string alert);
+        void ChangeScore(int score);
     }
 
     public static class GridDimensions
@@ -30,6 +31,7 @@ namespace FallingBricks2.View.Controls
         public static int MaxYValue;
         public static int MinXValue;
         public static int MaxXValue;
+        public static int NumberXColumns;        
     }
 
     public partial class GameGrid : UserControl, IGameGrid
@@ -37,13 +39,19 @@ namespace FallingBricks2.View.Controls
         private IGameGridController _controller;
         public GameGrid()
         {
+
+
+            
             InitializeComponent();
             _controller = (IGameGridController)new GameGridController((IGameGrid)this);
+            //http://social.msdn.microsoft.com/Forums/silverlight/en-US/c8d9f10e-4080-449f-85be-e4a28826bb21/visualtreehelpergetparent-returns-null?forum=silverlightmvvm
+            //var _gameView = VisualTreeHelper.GetParent(this);
             PopulateGridWithBackgroundTiles();
-            GridDimensions.MinYValue = 1;
-            GridDimensions.MaxXValue = this.grid.ColumnDefinitions.Count();
-            GridDimensions.MinXValue = 1;
+            GridDimensions.NumberXColumns = this.grid.ColumnDefinitions.Count();
+            GridDimensions.MaxXValue = GridDimensions.NumberXColumns - 1;
+            GridDimensions.MinXValue = 0;
             GridDimensions.MaxYValue = this.grid.RowDefinitions.Count();
+            GridDimensions.MinYValue = 1;
         }
 
         private void PopulateGridWithBackgroundTiles()
@@ -105,9 +113,14 @@ namespace FallingBricks2.View.Controls
             MessageBox.Show(alert);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public void StartGame()
         {
             _controller.StartGame();
+        }
+
+        public void ChangeScore(int score)
+        {
+            //_gameView.ChangeScore(score);
         }
     }
 }

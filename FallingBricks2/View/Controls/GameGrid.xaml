@@ -6,7 +6,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="360" d:DesignWidth="200">
 
-    <Border BorderBrush="Gray" BorderThickness="1" Background="#EAEAEA">
+    <Border BorderBrush="Blue" BorderThickness="2" Background="#EAEAEA">
         <Grid Name="grid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -40,7 +40,6 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Button Grid.ColumnSpan="4" Content="Button" HorizontalAlignment="Left" Margin="5,0,0,0" Grid.Row="17" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
         </Grid>
     </Border>
 </UserControl>

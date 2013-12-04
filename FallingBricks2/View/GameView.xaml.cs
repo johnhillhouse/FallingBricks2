@@ -50,5 +50,15 @@ namespace FallingBricks2.View
         {
             gameGrid.SlowDescent();
         }
+
+        private void StartGame(object sender, RoutedEventArgs e)
+        {
+            gameGrid.StartGame();
+        }
+
+        public void ChangeScore(int score)
+        {
+            this.Score.Content = score.ToString();
+        }
     }
 }

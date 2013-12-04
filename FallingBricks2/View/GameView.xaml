@@ -6,9 +6,11 @@
       xmlns:model="clr-namespace:FallingBricks2.Model.UI"
       xmlns:controls="clr-namespace:FallingBricks2.View.Controls"                    
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300">
+      d:DesignHeight="500" d:DesignWidth="310">
 
-    <Grid>
-        <controls:GameGrid x:Name="gameGrid"/>  
+    <Grid Margin="0,0,0,-119">
+        <controls:GameGrid x:Name="gameGrid" Margin="10,22,10,241"/>
+        <Button Content="Start Game" HorizontalAlignment="Left" Margin="10,456,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.48,5.682" Click="StartGame"/>
+        <Label x:Name="Score" Content="0" HorizontalAlignment="Left" Margin="139,456,0,0" VerticalAlignment="Top" Width="95"/>
     </Grid>
 </model:OverlayUserControl>
