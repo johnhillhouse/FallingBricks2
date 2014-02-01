@@ -11,6 +11,7 @@
     <Grid Margin="0,0,0,-119">
         <controls:GameGrid x:Name="gameGrid" Margin="10,22,10,241"/>
         <Button Content="Start Game" HorizontalAlignment="Left" Margin="10,456,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.48,5.682" Click="StartGame"/>
-        <Label x:Name="Score" Content="0" HorizontalAlignment="Left" Margin="139,456,0,0" VerticalAlignment="Top" Width="95"/>
+        <TextBlock Text="{Binding Score, Mode=TwoWay}"  HorizontalAlignment="Left" Margin="177,456,0,0" VerticalAlignment="Top" Width="95" Height="32" />
+
     </Grid>
 </model:OverlayUserControl>

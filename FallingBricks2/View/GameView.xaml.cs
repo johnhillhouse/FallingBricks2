@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FallingBricks2.Model.UI;
+using System.ComponentModel;
+using FallingBricks2.Controller;
 
 namespace FallingBricks2.View
 {
@@ -21,10 +23,15 @@ namespace FallingBricks2.View
     /// </summary>
     public partial class GameView : OverlayUserControl
     {
+        private ScoreHolder scoreHolder = ScoreHolder.GetScoreHolder();
+
         public GameView()
         {
             InitializeComponent();
+            this.DataContext = scoreHolder;
         }
+
+        public int ScoreTest {get; set;}
 
         public void MoveRight()
         {
@@ -54,11 +61,6 @@ namespace FallingBricks2.View
         private void StartGame(object sender, RoutedEventArgs e)
         {
             gameGrid.StartGame();
-        }
-
-        public void ChangeScore(int score)
-        {
-            this.Score.Content = score.ToString();
         }
     }
 }

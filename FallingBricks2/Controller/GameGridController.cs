@@ -28,16 +28,16 @@ namespace FallingBricks2.Controller
         private ICollisionDetector _collisionDetector;
         private IFallenTiles _fallenTiles;
         private GameTimer _gameTimer;
-        private int _score;
+        private ScoreHolder _scoreHolder;
         
         public GameGridController(IGameGrid gameGrid)
         {
             _gameGrid = gameGrid;
             _collisionDetector = (ICollisionDetector)new CollisionDetector();
             _fallenTiles = (IFallenTiles)new FallenTiles();
-            _score = 0;
             _gameTimer = new GameTimer();
             _gameTimer.Tick += new EventHandler(TetrisTick);
+            _scoreHolder = ScoreHolder.GetScoreHolder();
         }
 
         private void TetrisTick(object sender, EventArgs e)
@@ -54,7 +54,7 @@ namespace FallingBricks2.Controller
                     if (_fallenTiles.Has(tile))
                     {
                         _gameTimer.Stop();
-                        _gameGrid.AlertUser("Game Over.  Score: " + _score);
+                        _gameGrid.AlertUser("Game Over.  Score: " + _scoreHolder.Score);
                         return;
                     }
 
@@ -64,17 +64,11 @@ namespace FallingBricks2.Controller
                 ClearFallenTiles();
                 var numberOfRowsRemoved = 0;
                 _fallenTiles.RemoveCompletedRowIfRequired(_fallingShape, GridDimensions.NumberXColumns, out numberOfRowsRemoved);
-                ChangeScore(numberOfRowsRemoved);
+                _scoreHolder.Score = numberOfRowsRemoved;
                 PaintFallenTiles();
                 _fallingShape = ShapeFactory.GetRandomShape();
                 //_gameTimer.IncreaseDifficulty();
             }
-        }
-
-        private void ChangeScore(int numberOfRowsRemoved)
-        {
-            _score += numberOfRowsRemoved * 50;
-            _gameGrid.ChangeScore(_score);
         }
 
         public void SpeedDescent()

@@ -39,13 +39,8 @@ namespace FallingBricks2.View.Controls
         private IGameGridController _controller;
         public GameGrid()
         {
-
-
-            
             InitializeComponent();
             _controller = (IGameGridController)new GameGridController((IGameGrid)this);
-            //http://social.msdn.microsoft.com/Forums/silverlight/en-US/c8d9f10e-4080-449f-85be-e4a28826bb21/visualtreehelpergetparent-returns-null?forum=silverlightmvvm
-            //var _gameView = VisualTreeHelper.GetParent(this);
             PopulateGridWithBackgroundTiles();
             GridDimensions.NumberXColumns = this.grid.ColumnDefinitions.Count();
             GridDimensions.MaxXValue = GridDimensions.NumberXColumns - 1;
