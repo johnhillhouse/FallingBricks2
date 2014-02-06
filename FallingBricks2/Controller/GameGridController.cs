@@ -35,7 +35,7 @@ namespace FallingBricks2.Controller
             _gameGrid = gameGrid;
             _collisionDetector = (ICollisionDetector)new CollisionDetector();
             _fallenTiles = (IFallenTiles)new FallenTiles();
-            _gameTimer = new GameTimer();
+            _gameTimer = new GameTimer(Level.Easy);
             _gameTimer.Tick += new EventHandler(TetrisTick);
             _scoreHolder = ScoreHolder.GetScoreHolder();
         }
@@ -67,7 +67,7 @@ namespace FallingBricks2.Controller
                 _scoreHolder.Score = numberOfRowsRemoved;
                 PaintFallenTiles();
                 _fallingShape = ShapeFactory.GetRandomShape();
-                //_gameTimer.IncreaseDifficulty();
+                _gameTimer.IncreaseDifficulty();
             }
         }
 
